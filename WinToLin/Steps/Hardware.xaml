@@ -1,0 +1,98 @@
+﻿<UserControl x:Class="WinToLin.Steps.Hardware"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:WinToLin.Steps"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="900">
+
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/> <!-- GPU Panel -->
+            <ColumnDefinition Width="*"/> <!-- Network Panel -->
+            <ColumnDefinition Width="*"/> <!-- Disks Panel -->
+        </Grid.ColumnDefinitions>
+
+        <!-- GPU Panel -->
+        <Border Grid.Column="0" Margin="5" Padding="10" BorderBrush="Black" BorderThickness="1">
+            <StackPanel>
+                <TextBlock FontSize="20" FontWeight="Bold" Text="🎮 GPU" Margin="0 0 0 10"/>
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Height="400">
+                    <ItemsControl x:Name="GpuList">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="Black" BorderThickness="1" Padding="8" Margin="3" Width="Auto" MinHeight="60">
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="14" TextWrapping="Wrap"/>
+                                        <TextBlock Text="Compatibility: (to be filled later)" FontStyle="Italic" FontSize="12" Foreground="Gray"/>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </StackPanel>
+        </Border>
+
+        <!-- Network Adapter Panel -->
+        <Border Grid.Column="1" Margin="5" Padding="10" BorderBrush="Black" BorderThickness="1">
+            <StackPanel>
+                <TextBlock FontSize="20" FontWeight="Bold" Text="🌐 Network Adapters" Margin="0 0 0 10"/>
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Height="250">
+                    <ItemsControl x:Name="NetworkList">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="Black" BorderThickness="1" Padding="8" Margin="3" Width="Auto" MinHeight="60">
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="14" TextWrapping="Wrap"/>
+                                        <TextBlock Text="Compatibility: (to be filled later)" FontStyle="Italic" FontSize="12" Foreground="Gray"/>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </StackPanel>
+        </Border>
+
+        <!-- Disks Panel -->
+        <Border Grid.Column="2" Margin="5" Padding="10" BorderBrush="Black" BorderThickness="1">
+            <StackPanel>
+                <TextBlock FontSize="20" FontWeight="Bold" Text="💿 Disks" Margin="0 0 0 10"/>
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Height="400">
+                    <ItemsControl x:Name="DisksList">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="Black" BorderThickness="1" Padding="5" Margin="3" Width="265" Height="90">
+                                    <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left">
+                                        <TextBlock Text="{Binding Model}" FontWeight="Bold" FontSize="14" TextWrapping="Wrap" TextAlignment="Center"/>
+                                        <TextBlock Text="{Binding Type}"  Margin="0, 0, 0, 7" FontStyle="Italic" FontSize="12" Foreground="Gray" TextAlignment="Left"/>
+                                        <TextBlock Text="{Binding DriveLetters}" FontSize="12" TextAlignment="Left"/>
+                                        <TextBlock Text="{Binding Size}" FontSize="12" TextAlignment="Left"/>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </StackPanel>
+        </Border>
+
+    </Grid>
+</UserControl>

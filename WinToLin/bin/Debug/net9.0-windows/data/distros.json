@@ -1,0 +1,98 @@
+﻿[
+  {
+    "Name": "Ubuntu",
+    "Base": "Debian",
+    "Description": "User-friendly and widely supported Linux distribution.",
+    "UseCase": "Best for beginners and general use",
+    "DownloadUrl": "https://ubuntu.com/download",
+    "ImagePath": "../img/distros/ubuntu.png"
+  },
+  {
+    "Name": "Fedora",
+    "Base": "Red Hat",
+    "Description": "Cutting-edge features with strong developer focus.",
+    "UseCase": "Best for developers",
+    "DownloadUrl": "https://getfedora.org/",
+    "ImagePath": "../img/distros/fedora.png"
+  },
+  {
+    "Name": "Linux Mint",
+    "Base": "Ubuntu",
+    "Description": "Simple, stable, and familiar interface.",
+    "UseCase": "Best Windows alternative",
+    "DownloadUrl": "https://linuxmint.com/download.php",
+    "ImagePath": "../img/distros/linuxmint.png"
+  },
+  {
+    "Name": "Debian",
+    "Base": "Independent",
+    "Description": "Stable and reliable Linux distribution with a large package repository.",
+    "UseCase": "Servers, stability-focused users",
+    "DownloadUrl": "https://www.debian.org/distrib/",
+    "ImagePath": "../img/distros/debian.png"
+  },
+  {
+    "Name": "Arch Linux",
+    "Base": "Independent",
+    "Description": "Highly customizable minimal Linux system for advanced users.",
+    "UseCase": "Advanced users, DIY Linux setups",
+    "DownloadUrl": "https://archlinux.org/download/",
+    "ImagePath": "../img/distros/archlinux.png"
+  },
+  {
+    "Name": "Pop!_OS",
+    "Base": "Ubuntu",
+    "Description": "Optimized for performance and gaming, especially with NVIDIA GPUs.",
+    "UseCase": "Gaming, creators, high-performance desktops",
+    "DownloadUrl": "https://pop.system76.com/",
+    "ImagePath": "../img/distros/popos.png"
+  },
+  {
+    "Name": "openSUSE Leap",
+    "Base": "SUSE",
+    "Description": "Stable and enterprise-focused Linux distribution with great tools.",
+    "UseCase": "Enterprise, professional users",
+    "DownloadUrl": "https://www.opensuse.org/",
+    "ImagePath": "../img/distros/opensuse.png"
+  },
+  {
+    "Name": "Manjaro",
+    "Base": "Arch Linux",
+    "Description": "User-friendly Arch-based Linux with easy installation and hardware detection.",
+    "UseCase": "Beginners who want Arch features",
+    "DownloadUrl": "https://manjaro.org/download/",
+    "ImagePath": "../img/distros/manjaro.png"
+  },
+  {
+    "Name": "Elementary OS",
+    "Base": "Ubuntu",
+    "Description": "Elegant Linux distribution focused on simplicity and aesthetics.",
+    "UseCase": "Users who want macOS-like experience",
+    "DownloadUrl": "https://elementary.io/",
+    "ImagePath": "../img/distros/elementaryos.png"
+  },
+  {
+    "Name": "Zorin OS",
+    "Base": "Ubuntu",
+    "Description": "Windows-like Linux distribution designed for smooth transition from Windows.",
+    "UseCase": "Windows users switching to Linux",
+    "DownloadUrl": "https://zorin.com/os/",
+    "ImagePath": "../img/distros/zorin.png"
+  },
+  {
+    "Name": "Kali Linux",
+    "Base": "Debian",
+    "Description": "Security-focused Linux distribution for penetration testing and ethical hacking.",
+    "UseCase": "Security professionals, ethical hackers",
+    "DownloadUrl": "https://www.kali.org/get-kali/",
+    "ImagePath": "../img/distros/kali.png"
+  },
+  {
+    "Name": "MX Linux",
+    "Base": "Debian",
+    "Description": "Lightweight and stable Linux distribution with good performance on older hardware.",
+    "UseCase": "Older computers, lightweight desktops",
+    "DownloadUrl": "https://mxlinux.org/download-links/",
+    "ImagePath": "../img/distros/mxlinux.png"
+  }
+]

@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="WinToLin.Welcome"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:WinToLin"
+             mc:Ignorable="d"
+             d:DesignHeight="550" d:DesignWidth="950">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.2*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Image Grid.Column="0" Source="../img/WinToLinLogo.png" Margin="40"></Image>
+        
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <Label Grid.Row="0" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalAlignment="Left" FontSize="25" Padding="0">
+                Welcome to WinToLin
+            </Label>
+            
+            <TextBlock TextWrapping="Wrap" Grid.Row="1" VerticalAlignment="Top" Margin="0">
+                WinToLin removes the headache of switching to Linux by automatically backing up your files and finding the right software for you.
+            </TextBlock>
+            
+            <TextBlock TextWrapping="Wrap" Grid.Row="2">
+                ✓ Backup important data for easy migration
+            </TextBlock>
+            
+            <TextBlock TextWrapping="Wrap" Grid.Row="3">
+                ✓ Recommend Linux alternatives to your programs
+            </TextBlock>
+            
+            <TextBlock TextWrapping="Wrap" Grid.Row="4">
+                ✓ Create an installer USB to migrate to your chosen Linux distro
+            </TextBlock>
+            
+        </Grid>
+        
+    </Grid>
+</UserControl>
