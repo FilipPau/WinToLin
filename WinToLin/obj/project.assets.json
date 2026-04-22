@@ -2,6 +2,21 @@
   "version": 3,
   "targets": {
     "net9.0-windows7.0": {
+      "CryptSharpOfficial/2.1.0": {
+        "type": "package",
+        "compile": {
+          "lib/CryptSharp.dll": {}
+        },
+        "runtime": {
+          "lib/CryptSharp.dll": {}
+        }
+      },
+      "Microsoft.NET.ILLink.Tasks/9.0.13": {
+        "type": "package",
+        "build": {
+          "build/Microsoft.NET.ILLink.Tasks.props": {}
+        }
+      },
       "Microsoft.Win32.SystemEvents/10.0.3": {
         "type": "package",
         "compile": {
@@ -149,6 +164,244 @@
           "buildTransitive/net8.0/System.Text.Json.targets": {}
         }
       },
+      "TimeZoneConverter/7.2.0": {
+        "type": "package",
+        "compile": {
+          "lib/net9.0/TimeZoneConverter.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net9.0/TimeZoneConverter.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Vortice.DirectX/3.8.3": {
+        "type": "package",
+        "dependencies": {
+          "SharpGen.Runtime": "2.4.2-beta",
+          "SharpGen.Runtime.COM": "2.4.2-beta",
+          "Vortice.Mathematics": "2.1.0"
+        },
+        "compile": {
+          "lib/net9.0/Vortice.DirectX.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net9.0/Vortice.DirectX.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "build/_._": {}
+        },
+        "buildMultiTargeting": {
+          "buildMultiTargeting/_._": {}
+        }
+      },
+      "Vortice.DXGI/3.8.3": {
+        "type": "package",
+        "dependencies": {
+          "SharpGen.Runtime": "2.4.2-beta",
+          "Vortice.DirectX": "3.8.3"
+        },
+        "compile": {
+          "lib/net9.0/Vortice.DXGI.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net9.0/Vortice.DXGI.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "build/Vortice.DXGI.props": {}
+        },
+        "buildMultiTargeting": {
+          "buildMultiTargeting/Vortice.DXGI.props": {}
+        }
+      },
+      "Vortice.Mathematics/2.1.0": {
+        "type": "package",
+        "compile": {
+          "lib/net9.0/Vortice.Mathematics.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net9.0/Vortice.Mathematics.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      }
+    },
+    "net9.0-windows7.0/win-x64": {
+      "CryptSharpOfficial/2.1.0": {
+        "type": "package",
+        "compile": {
+          "lib/CryptSharp.dll": {}
+        },
+        "runtime": {
+          "lib/CryptSharp.dll": {}
+        }
+      },
+      "Microsoft.NET.ILLink.Tasks/9.0.13": {
+        "type": "package",
+        "build": {
+          "build/Microsoft.NET.ILLink.Tasks.props": {}
+        }
+      },
+      "Microsoft.Win32.SystemEvents/10.0.3": {
+        "type": "package",
+        "compile": {
+          "lib/net9.0/Microsoft.Win32.SystemEvents.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "runtimes/win/lib/net9.0/Microsoft.Win32.SystemEvents.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/_._": {}
+        }
+      },
+      "SharpGen.Runtime/2.4.2-beta": {
+        "type": "package",
+        "dependencies": {
+          "System.Text.Json": "9.0.1"
+        },
+        "compile": {
+          "lib/net9.0/SharpGen.Runtime.dll": {}
+        },
+        "runtime": {
+          "lib/net9.0/SharpGen.Runtime.dll": {}
+        },
+        "build": {
+          "build/_._": {}
+        },
+        "buildMultiTargeting": {
+          "buildMultiTargeting/_._": {}
+        }
+      },
+      "SharpGen.Runtime.COM/2.4.2-beta": {
+        "type": "package",
+        "dependencies": {
+          "SharpGen.Runtime": "2.4.2-beta",
+          "System.Text.Json": "9.0.1"
+        },
+        "compile": {
+          "lib/net9.0/SharpGen.Runtime.COM.dll": {}
+        },
+        "runtime": {
+          "lib/net9.0/SharpGen.Runtime.COM.dll": {}
+        },
+        "build": {
+          "build/_._": {}
+        },
+        "buildMultiTargeting": {
+          "buildMultiTargeting/_._": {}
+        }
+      },
+      "System.CodeDom/10.0.3": {
+        "type": "package",
+        "compile": {
+          "lib/net9.0/System.CodeDom.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net9.0/System.CodeDom.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/_._": {}
+        }
+      },
+      "System.Drawing.Common/10.0.3": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Win32.SystemEvents": "10.0.3"
+        },
+        "compile": {
+          "lib/net9.0/System.Drawing.Common.dll": {
+            "related": ".pdb;.xml"
+          },
+          "lib/net9.0/System.Private.Windows.Core.dll": {
+            "related": ".xml"
+          },
+          "lib/net9.0/System.Private.Windows.GdiPlus.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net9.0/System.Drawing.Common.dll": {
+            "related": ".pdb;.xml"
+          },
+          "lib/net9.0/System.Private.Windows.Core.dll": {
+            "related": ".xml"
+          },
+          "lib/net9.0/System.Private.Windows.GdiPlus.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/_._": {}
+        }
+      },
+      "System.Management/10.0.3": {
+        "type": "package",
+        "dependencies": {
+          "System.CodeDom": "10.0.3"
+        },
+        "compile": {
+          "lib/net9.0/System.Management.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "runtimes/win/lib/net9.0/System.Management.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/_._": {}
+        }
+      },
+      "System.Text.Json/9.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/net9.0/System.Text.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net9.0/System.Text.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/System.Text.Json.targets": {}
+        }
+      },
+      "TimeZoneConverter/7.2.0": {
+        "type": "package",
+        "compile": {
+          "lib/net9.0/TimeZoneConverter.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net9.0/TimeZoneConverter.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Vortice.DirectX/3.8.3": {
         "type": "package",
         "dependencies": {
@@ -212,6 +465,72 @@
     }
   },
   "libraries": {
+    "CryptSharpOfficial/2.1.0": {
+      "sha512": "t90jvDpTXoP4LTTHh/+HnBsOxQwOmlhS0hlqgocLKN0T5udAG8QuVtwcpGsjwK2Sl6YfRgflCGiSgeVWwF6+jw==",
+      "type": "package",
+      "path": "cryptsharpofficial/2.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "cryptsharpofficial.2.1.0.nupkg.sha512",
+        "cryptsharpofficial.nuspec",
+        "lib/CryptSharp.XML",
+        "lib/CryptSharp.chm",
+        "lib/CryptSharp.dll",
+        "lib/CryptSharp.pdb"
+      ]
+    },
+    "Microsoft.NET.ILLink.Tasks/9.0.13": {
+      "sha512": "f7t15I9ZXV7fNk3FIzPAlkJNG1A1tkSeDpRh+TFWEToGGqA+uj6uqU15I8YOkkYICNY2tqOVm2CMe6ScPFPwEg==",
+      "type": "package",
+      "path": "microsoft.net.illink.tasks/9.0.13",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "Sdk/Sdk.props",
+        "THIRD-PARTY-NOTICES.TXT",
+        "analyzers/dotnet/cs/ILLink.CodeFixProvider.dll",
+        "analyzers/dotnet/cs/ILLink.RoslynAnalyzer.dll",
+        "build/Microsoft.NET.ILLink.Analyzers.props",
+        "build/Microsoft.NET.ILLink.Tasks.props",
+        "build/Microsoft.NET.ILLink.targets",
+        "microsoft.net.illink.tasks.9.0.13.nupkg.sha512",
+        "microsoft.net.illink.tasks.nuspec",
+        "tools/net472/ILLink.Tasks.dll",
+        "tools/net472/ILLink.Tasks.dll.config",
+        "tools/net472/Mono.Cecil.Mdb.dll",
+        "tools/net472/Mono.Cecil.Pdb.dll",
+        "tools/net472/Mono.Cecil.Rocks.dll",
+        "tools/net472/Mono.Cecil.dll",
+        "tools/net472/Sdk/Sdk.props",
+        "tools/net472/System.Buffers.dll",
+        "tools/net472/System.Collections.Immutable.dll",
+        "tools/net472/System.Memory.dll",
+        "tools/net472/System.Numerics.Vectors.dll",
+        "tools/net472/System.Reflection.Metadata.dll",
+        "tools/net472/System.Runtime.CompilerServices.Unsafe.dll",
+        "tools/net472/build/Microsoft.NET.ILLink.Analyzers.props",
+        "tools/net472/build/Microsoft.NET.ILLink.Tasks.props",
+        "tools/net472/build/Microsoft.NET.ILLink.targets",
+        "tools/net9.0/ILLink.Tasks.deps.json",
+        "tools/net9.0/ILLink.Tasks.dll",
+        "tools/net9.0/Mono.Cecil.Mdb.dll",
+        "tools/net9.0/Mono.Cecil.Pdb.dll",
+        "tools/net9.0/Mono.Cecil.Rocks.dll",
+        "tools/net9.0/Mono.Cecil.dll",
+        "tools/net9.0/Sdk/Sdk.props",
+        "tools/net9.0/build/Microsoft.NET.ILLink.Analyzers.props",
+        "tools/net9.0/build/Microsoft.NET.ILLink.Tasks.props",
+        "tools/net9.0/build/Microsoft.NET.ILLink.targets",
+        "tools/net9.0/illink.deps.json",
+        "tools/net9.0/illink.dll",
+        "tools/net9.0/illink.runtimeconfig.json",
+        "useSharedDesignerContext.txt"
+      ]
+    },
     "Microsoft.Win32.SystemEvents/10.0.3": {
       "sha512": "gYpwz5Gl0rs9pEFHBKctLbSi7SUGR4L1uRjXkU488nizWd2hvo2JP2+ATUsv0th7v6LDiXfdlUsnTbvC2MauFA==",
       "type": "package",
@@ -470,6 +789,26 @@
         "useSharedDesignerContext.txt"
       ]
     },
+    "TimeZoneConverter/7.2.0": {
+      "sha512": "4Poqu79dTmacVETqUJ53g3x4U21V/cmWPSlehdsVE4Q00akavvlRq+SRjcg/CmfO9ibOCjRl6TeUV7hkC5RC4w==",
+      "type": "package",
+      "path": "timezoneconverter/7.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "lib/net462/TimeZoneConverter.dll",
+        "lib/net462/TimeZoneConverter.xml",
+        "lib/net8.0/TimeZoneConverter.dll",
+        "lib/net8.0/TimeZoneConverter.xml",
+        "lib/net9.0/TimeZoneConverter.dll",
+        "lib/net9.0/TimeZoneConverter.xml",
+        "lib/netstandard2.0/TimeZoneConverter.dll",
+        "lib/netstandard2.0/TimeZoneConverter.xml",
+        "timezoneconverter.7.2.0.nupkg.sha512",
+        "timezoneconverter.nuspec"
+      ]
+    },
     "Vortice.DirectX/3.8.3": {
       "sha512": "nKwSavv0w5rDF7prSefqAVPDcTyqrfZxKFMVfttiXPfm62VdA/1d+b3PhCZpW4xO7jXczXDwjQdWgD1zGsvM8w==",
       "type": "package",
@@ -554,8 +893,11 @@
   },
   "projectFileDependencyGroups": {
     "net9.0-windows7.0": [
+      "CryptSharpOfficial >= 2.1.0",
+      "Microsoft.NET.ILLink.Tasks >= 9.0.13",
       "System.Drawing.Common >= 10.0.3",
       "System.Management >= 10.0.3",
+      "TimeZoneConverter >= 7.2.0",
       "Vortice.DXGI >= 3.8.3"
     ]
   },
@@ -602,6 +944,16 @@
       "net9.0-windows7.0": {
         "targetAlias": "net9.0-windows",
         "dependencies": {
+          "CryptSharpOfficial": {
+            "target": "Package",
+            "version": "[2.1.0, )"
+          },
+          "Microsoft.NET.ILLink.Tasks": {
+            "suppressParent": "All",
+            "target": "Package",
+            "version": "[9.0.13, )",
+            "autoReferenced": true
+          },
           "System.Drawing.Common": {
             "target": "Package",
             "version": "[10.0.3, )"
@@ -609,6 +961,10 @@
           "System.Management": {
             "target": "Package",
             "version": "[10.0.3, )"
+          },
+          "TimeZoneConverter": {
+            "target": "Package",
+            "version": "[7.2.0, )"
           },
           "Vortice.DXGI": {
             "target": "Package",
@@ -626,6 +982,20 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
+            "version": "[9.0.13, 9.0.13]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Runtime.win-x64",
+            "version": "[9.0.13, 9.0.13]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
+            "version": "[9.0.13, 9.0.13]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
@@ -636,6 +1006,23 @@
         },
         "runtimeIdentifierGraphPath": "C:\\Users\\filip\\.dotnet\\sdk\\9.0.311/PortableRuntimeIdentifierGraph.json"
       }
+    },
+    "runtimes": {
+      "win-x64": {
+        "#import": []
+      }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Das Paket \"CryptSharpOfficial 2.1.0\" wurde nicht mit dem Projektzielframework \"net9.0-windows7.0\", sondern mit \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1\" wiederhergestellt. Dieses Paket ist mit Ihrem Projekt möglicherweise nicht vollständig kompatibel.",
+      "libraryId": "CryptSharpOfficial",
+      "targetGraphs": [
+        "net9.0-windows7.0"
+      ]
+    }
+  ]
 }

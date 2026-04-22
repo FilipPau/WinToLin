@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace WinToLin
@@ -18,54 +16,173 @@ namespace WinToLin
             Drives = new List<string>();
             SoftwareNames = new List<string>();
             BackupPaths = new List<string>();
-            DistroName = "";
+
+            DistroName = string.Empty;
+            InstalationUSBLetter = string.Empty;
+            InstallationUSBDeviceId = string.Empty;
+
+            Language = string.Empty;
+            KeyboardLayout = string.Empty;
+            TimeZone = string.Empty;
+            UsedWlanSSId = string.Empty;
+            WifiProfileExportPath = string.Empty;
         }
 
-        #region Hardware
+        // =========================
+        // Hardware
+        // =========================
 
-        [JsonPropertyName("gpus")]
-        public List<string> GPUNames { get; set; }
-        public void AddGPU(string gpuName) => GPUNames.Add(gpuName);
-        public void AddGPUs(List<string> gpuNames) => GPUNames.AddRange(gpuNames);
+        [JsonPropertyName("gpus")] public List<string> GPUNames { get; }
 
-        [JsonPropertyName("networkCards")]
-        public List<string> NICNames { get; set; }
-        public void AddNIC(string nicName) => NICNames.Add(nicName);
-        public void AddNICs(List<string> nicNames) => NICNames.AddRange(nicNames);
+        public void AddGPU(string gpuName)
+        {
+            if (!string.IsNullOrWhiteSpace(gpuName))
+                GPUNames.Add(gpuName);
+        }
 
-        [JsonPropertyName("storageDrives")]
-        public List<string> Drives { get; set; }
-        
-        public void AddDrive(string drive) => Drives.Add(drive);
-        public void AddDrives(List<string> drives) => Drives.AddRange(drives);
+        public void AddGPUs(IEnumerable<string> gpuNames)
+        {
+            if (gpuNames != null)
+                GPUNames.AddRange(gpuNames);
+        }
 
-        #endregion
+        [JsonPropertyName("networkCards")] public List<string> NICNames { get; }
 
-        #region Software
+        public void AddNIC(string nicName)
+        {
+            if (!string.IsNullOrWhiteSpace(nicName))
+                NICNames.Add(nicName);
+        }
+
+        public void AddNICs(IEnumerable<string> nicNames)
+        {
+            if (nicNames != null)
+                NICNames.AddRange(nicNames);
+        }
+
+        [JsonPropertyName("storageDrives")] public List<string> Drives { get; }
+
+        public void AddDrive(string drive)
+        {
+            if (!string.IsNullOrWhiteSpace(drive))
+                Drives.Add(drive);
+        }
+
+        public void AddDrives(IEnumerable<string> drives)
+        {
+            if (drives != null)
+                Drives.AddRange(drives);
+        }
+
+        [JsonPropertyName("driveToInstallOs")] public string OsDrive { get; private set; }
+
+        public void SetOsDrive(string drive)
+        {
+            OsDrive = drive ?? string.Empty;
+        }
+
+        // =========================
+        // Software
+        // =========================
 
         [JsonPropertyName("softwareToInstall")]
-        public List<string> SoftwareNames { get; set; }
-        public void AddSoftware(string softwareName) => SoftwareNames.Add(softwareName);
-        public void RemoveSoftware(string softwareName) => SoftwareNames.Remove(softwareName);
-        public void AddSoftwareList(List<string> softwareList) => SoftwareNames.AddRange(softwareList);
+        public List<string> SoftwareNames { get; }
 
-        #endregion
+        public void AddSoftware(string softwareName)
+        {
+            if (!string.IsNullOrWhiteSpace(softwareName))
+                SoftwareNames.Add(softwareName);
+        }
 
-        #region Backup
+        public void RemoveSoftware(string softwareName)
+        {
+            SoftwareNames.Remove(softwareName);
+        }
 
-        [JsonPropertyName("backupLocations")]
-        public List<string> BackupPaths { get; set; }
-        public void AddBackupPath(string backupPath) => BackupPaths.Add(backupPath);
-        public void RemoveBackupPath(string backupPath) => BackupPaths.Remove(backupPath);
+        public void AddSoftwareList(IEnumerable<string> softwareList)
+        {
+            if (softwareList != null)
+                SoftwareNames.AddRange(softwareList);
+        }
 
-        #endregion
+        // =========================
+        // Backup
+        // =========================
 
-        #region Distro
+        [JsonPropertyName("backupLocations")] public List<string> BackupPaths { get; }
 
-        [JsonPropertyName("selectedDistro")]
-        public string DistroName { get; set; }
-        public void SetDistro(string distroName) => DistroName = distroName;
+        public void AddBackupPath(string backupPath)
+        {
+            if (!string.IsNullOrWhiteSpace(backupPath))
+                BackupPaths.Add(backupPath);
+        }
 
-        #endregion
+        public void RemoveBackupPath(string backupPath)
+        {
+            BackupPaths.Remove(backupPath);
+        }
+
+        // =========================
+        // Distro
+        // =========================
+
+        [JsonPropertyName("selectedDistro")] public string DistroName { get; private set; }
+
+        public void SetDistro(string distroName)
+        {
+            DistroName = distroName ?? string.Empty;
+        }
+
+        // =========================
+        // USB
+        // =========================
+
+        [JsonPropertyName("instalationUSB")] public string InstalationUSBLetter { get; private set; }
+
+        [JsonPropertyName("installationUSBId")]
+        public string InstallationUSBDeviceId { get; private set; }
+
+        public void SetUSB(string letter, string deviceId)
+        {
+            InstalationUSBLetter = letter ?? string.Empty;
+            InstallationUSBDeviceId = deviceId ?? string.Empty;
+        }
+
+        // =========================
+        // OS CONFIG
+        // =========================
+
+        [JsonPropertyName("timeZone")] public string TimeZone { get; private set; }
+
+        [JsonPropertyName("userName")] public string UserName { get; private set; }
+
+        [JsonPropertyName("keyboardLayout")] public string KeyboardLayout { get; private set; }
+
+        [JsonPropertyName("language")] public string Language { get; private set; }
+
+        [JsonPropertyName("usedWlanSSId")] public string UsedWlanSSId { get; private set; }
+
+        [JsonPropertyName("wifiProfileExportPath")]
+        public string WifiProfileExportPath { get; private set; }
+
+        // =========================
+        // SET SYSTEM CONFIG
+        // =========================
+
+        public void SetSystemSettings(
+            string userName,
+            string language,
+            string keyboardLayout,
+            string timeZone,
+            string wlanSsid,
+            string wifiExportPath)
+        {
+            UserName = userName ?? string.Empty;
+            Language = language ?? string.Empty;
+            KeyboardLayout = keyboardLayout ?? string.Empty;
+            TimeZone = timeZone ?? string.Empty;
+            UsedWlanSSId = wlanSsid ?? string.Empty;
+            WifiProfileExportPath = wifiExportPath ?? string.Empty;
+        }
     }
 }

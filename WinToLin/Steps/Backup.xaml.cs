@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
-using Microsoft.Win32;
 
 namespace WinToLin.Steps;
 
@@ -18,12 +15,15 @@ public partial class Backup : UserControl
     public ObservableCollection<BackupItem> AppData { get; set; } = new();
     public ObservableCollection<BackupItem> CustomLocations { get; set; } = new();
 
+    private static bool hasLoaded = false;
+    
     public Backup()
     {
-        InitializeComponent();
-        
-        manager = Manager.Instance;
 
+        
+        InitializeComponent();
+
+        manager = Manager.Instance;
 
         Loaded += Backup_Loaded;
 
@@ -34,8 +34,13 @@ public partial class Backup : UserControl
 
     private async void Backup_Loaded(object sender, RoutedEventArgs e)
     {
+        if (hasLoaded)
+            return; 
+
+        hasLoaded = true;
+        
         LoadingOverlay.Visibility = Visibility.Visible;
-        await Task.Delay(100); // allow overlay to render
+        await Task.Delay(100);
         await LoadBackupLocationsAsync();
         LoadingOverlay.Visibility = Visibility.Collapsed;
     }
@@ -61,133 +66,129 @@ public partial class Backup : UserControl
         });
     }
 
-    // Fired when a backup item is selected
-    private void BackupItem_Checked(object sender, RoutedEventArgs e)
-    {
-        if (sender is not CheckBox cb) return;
-        if (cb.DataContext is not BackupItem item) return;
-
-        OnBackupItemSelected(item.Path);
-    }
-
-    private void BackupItem_Unchecked(object sender, RoutedEventArgs e)
-    {
-        if (sender is not CheckBox cb) return;
-        if (cb.DataContext is not BackupItem item) return;
-
-        OnBackupItemDeselected(item.Path);
-    }
-
-    private void OnBackupItemSelected(string path)
-    {
-        manager.AddBackupPath(path);
-    }
-
-    private void OnBackupItemDeselected(string path)
-    {
-        manager.RemoveBackupPath(path);
-    }
-    
     private void AddIfExists(ObservableCollection<BackupItem> list, string name, string path)
     {
         if (Directory.Exists(path) || File.Exists(path))
         {
             Dispatcher.Invoke(() =>
             {
-                list.Add(new BackupItem
+                var item = new BackupItem
                 {
                     Name = name,
                     Path = path,
-                    Selected = true,
                     Icon = GetIcon(path)
-                });
+                };
 
-                OnBackupItemSelected(path);
+                list.Add(item);
+                manager.AddBackupPath(path);
             });
         }
     }
 
-    private BitmapImage GetIcon(string path)
-    {
-        try
-        {
-            string iconPath = Directory.Exists(path) ? "folder_icon.png" : "file_icon.png";
-            var bi = new BitmapImage();
-            bi.BeginInit();
-            bi.UriSource = new Uri($"pack://application:,,,/Assets/{iconPath}");
-            bi.EndInit();
-            return bi;
-        }
-        catch
-        {
-            return null;
-        }
-    }
-
-    private bool IsSubPath(string child, string parent)
-    {
-        var childUri = new Uri(Path.GetFullPath(child).TrimEnd(Path.DirectorySeparatorChar) +
-                               Path.DirectorySeparatorChar);
-        var parentUri = new Uri(Path.GetFullPath(parent).TrimEnd(Path.DirectorySeparatorChar) +
-                                Path.DirectorySeparatorChar);
-
-        return parentUri.IsBaseOf(childUri);
-    }
-
     private void AddFolder_Click(object sender, RoutedEventArgs e)
     {
-        var dialog = new OpenFolderDialog();
+        var dialog = new Microsoft.Win32.OpenFolderDialog();
         if (dialog.ShowDialog() == true)
         {
             AddCustomLocation(dialog.FolderName);
         }
     }
 
-    private bool IsCoveredByAny(string path)
+    private void AddCustomLocation(string path)
     {
+        path = Path.GetFullPath(path);
+
+        // 1. If already covered → do nothing
+        if (ExistsInAnyHierarchy(path))
+        {
+            MessageBox.Show("This folder (or its parent/child) is already included.");
+            return;
+        }
+
+        // 2. Remove all subfolders of this new path (it takes over them)
+        for (int i = CustomLocations.Count - 1; i >= 0; i--)
+        {
+            if (IsSubPath(CustomLocations[i].Path, path))
+            {
+                manager.RemoveBackupPath(CustomLocations[i].Path);
+                CustomLocations.RemoveAt(i);
+            }
+        }
+
+        // 3. Remove all parents of this path (they are replaced by the more specific one OR vice versa rule)
+        for (int i = CustomLocations.Count - 1; i >= 0; i--)
+        {
+            if (IsSubPath(path, CustomLocations[i].Path))
+            {
+                manager.RemoveBackupPath(CustomLocations[i].Path);
+                CustomLocations.RemoveAt(i);
+            }
+        }
+
+        // 4. Add new item
+        CustomLocations.Add(new BackupItem
+        {
+            Name = Path.GetFileName(path),
+            Path = path,
+            Icon = GetIcon(path)
+        });
+
+        manager.AddBackupPath(path);
+    }
+
+    private bool IsSameOrNested(string a, string b)
+    {
+        a = Path.GetFullPath(a).TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
+        b = Path.GetFullPath(b).TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
+
+        return a.StartsWith(b, StringComparison.OrdinalIgnoreCase)
+               || b.StartsWith(a, StringComparison.OrdinalIgnoreCase);
+    }
+
+    private bool ExistsInAnyHierarchy(string path)
+    {
+        path = Path.GetFullPath(path);
+
         foreach (var item in PersonalFiles)
-            if (IsSubPath(path, item.Path))
+            if (IsSameOrNested(path, item.Path))
                 return true;
 
         foreach (var item in AppData)
-            if (IsSubPath(path, item.Path))
+            if (IsSameOrNested(path, item.Path))
                 return true;
 
         foreach (var item in CustomLocations)
-            if (IsSubPath(path, item.Path))
+            if (IsSameOrNested(path, item.Path))
                 return true;
 
         return false;
     }
 
-    private void AddCustomLocation(string path)
+    private bool IsSubPath(string child, string parent)
     {
-        path = Path.GetFullPath(path);
+        var childPath = Path.GetFullPath(child).TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
+        var parentPath = Path.GetFullPath(parent).TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
 
-        // 1. BLOCK if already covered anywhere
-        if (IsCoveredByAny(path))
-        {
-            MessageBox.Show("This folder is already covered by an existing selection.");
-            return;
-        }
+        return childPath.StartsWith(parentPath, StringComparison.OrdinalIgnoreCase);
+    }
 
-        // 2. Remove subpaths from CustomLocations
-        for (int i = CustomLocations.Count - 1; i >= 0; i--)
-        {
-            if (IsSubPath(CustomLocations[i].Path, path))
-            {
-                CustomLocations.RemoveAt(i);
-            }
-        }
+    private bool ExistsInAny(string path)
+    {
+        return PersonalFiles.Any(x => x.Path == path)
+               || AppData.Any(x => x.Path == path)
+               || CustomLocations.Any(x => x.Path == path);
+    }
 
-        // 3. Add
-        CustomLocations.Add(new BackupItem
-        {
-            Name = System.IO.Path.GetFileName(path),
-            Path = path,
-            Selected = true,
-            Icon = GetIcon(path)
-        });
+    private void RemoveItem_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is not Button btn) return;
+        if (btn.Tag is not BackupItem item) return;
+
+        PersonalFiles.Remove(item);
+        AppData.Remove(item);
+        CustomLocations.Remove(item);
+
+        manager.RemoveBackupPath(item.Path);
     }
 
     private void OpenFolder_Click(object sender, RoutedEventArgs e)
@@ -201,11 +202,28 @@ public partial class Backup : UserControl
             });
         }
     }
+
+    private BitmapImage GetIcon(string path)
+    {
+        try
+        {
+            string icon = Directory.Exists(path) ? "folder_icon.png" : "file_icon.png";
+
+            var bi = new BitmapImage();
+            bi.BeginInit();
+            bi.UriSource = new Uri($"pack://application:,,,/Assets/{icon}");
+            bi.EndInit();
+            return bi;
+        }
+        catch
+        {
+            return null;
+        }
+    }
 }
 
 public class BackupItem
 {
-    public bool Selected { get; set; }
     public string Name { get; set; }
     public string Path { get; set; }
     public BitmapImage Icon { get; set; }

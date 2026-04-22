@@ -1,5 +1,9 @@
-﻿using System.Management;
+﻿using System.Drawing;
+using System.Globalization;
+using System.IO;
+using System.Management;
 using System.Windows.Controls;
+using System.Windows.Data;
 using Vortice.DXGI;
 using SharpGen.Runtime;
 
@@ -21,11 +25,12 @@ public partial class Hardware : UserControl
     {
         var gpus = ShowAndGetGpus();
         var nics = LoadNetworkAdapters();
-        var drives = LoadDisks();
+        var drivesAndOsDrive = LoadDisks();
         
         manager.AddGPUs(gpus);
         manager.AddNICs(nics);
-        manager.AddDrives(drives);
+        manager.AddDrives(drivesAndOsDrive.allDisks);
+        manager.SetOsDrive(drivesAndOsDrive.osDrive);
     }
 
     // ----------------------- GPU -----------------------
@@ -56,7 +61,7 @@ public partial class Hardware : UserControl
                     gpus.Add(new GpuInfo
                     {
                         Name = desc.Description.Trim(),
-                        Compatibility = "(to be filled later)"
+                        Compatibility = GPUCompatiblityCheck(desc.Description.Trim())
                     });
                 }
             }
@@ -101,7 +106,7 @@ public partial class Hardware : UserControl
                         {
                             Name = mo["Name"]?.ToString(),
                             Description = mo["Description"]?.ToString(),
-                            Compatibility = "(to be filled later)"
+                            Compatibility = "to be filled later"
                         });
                     }
                 }
@@ -113,6 +118,16 @@ public partial class Hardware : UserControl
         return adapters.Select(a => a.Name).ToList();
     }
 
+    private string GPUCompatiblityCheck(string gpuName)
+    {
+        return gpuName switch
+        {
+            string name when name.Contains("amd", StringComparison.OrdinalIgnoreCase) => "Compatible",
+            string name when name.Contains("nvidia", StringComparison.OrdinalIgnoreCase) => "Compatible with work to do (todo)",
+            _ => "Unknown GPU"
+        };
+    }
+    
     public class NetworkAdapterInfo
     {
         public string Name { get; set; }
@@ -121,15 +136,21 @@ public partial class Hardware : UserControl
     }
 
     // ----------------------- Disks -----------------------
-    private List<string> LoadDisks()
+    private (List<string> allDisks, string osDrive) LoadDisks()
     {
         var disks = new List<DiskInfo>();
 
+        string osDrive = "undefined";
+        
         try
         {
             // 1. Get Physical Disks
             using var diskSearcher = new ManagementObjectSearcher("SELECT * FROM Win32_DiskDrive");
 
+            string? systemDrive = Path.GetPathRoot(
+                Environment.GetFolderPath(Environment.SpecialFolder.System)
+            )?.Replace("\\", "");
+            
             foreach (ManagementObject disk in diskSearcher.Get())
             {
                 string deviceId = disk["DeviceID"].ToString(); // e.g., "\\.\PHYSICALDRIVE0"
@@ -156,16 +177,29 @@ public partial class Hardware : UserControl
                     }
                 }
 
+                if (disk["MediaType"] .ToString() == "Removable Media")
+                {
+                    continue;
+                }
+
+                if (driveLetters.Any(dl => 
+                        dl.Equals(systemDrive, StringComparison.OrdinalIgnoreCase)))
+                {
+                    osDrive = string.Join(", ", driveLetters.Select(d => d.Replace(":", "")));
+                }
+                
                 disks.Add(new DiskInfo
                 {
                     Model = disk["Model"]?.ToString() ?? "Unknown",
-                    Type = disk["MediaType"]?.ToString() ?? "Disk",
+                    Type = disk["MediaType"] .ToString() ?? "Disk",
                     Size = disk["Size"] != null
                         ? $"Space: {((ulong)disk["Size"] / 1073741824.0):F2} GB"
                         : "Unknown",
                     DriveLetters = driveLetters.Any() 
                         ? "Letter: " + string.Join(", ", driveLetters.Select(d => d.Replace(":", ""))) 
-                        : "No drive letter"
+                        : "No drive letter",
+                    OSDrive = driveLetters.Any(dl => 
+                        dl.Equals(systemDrive, StringComparison.OrdinalIgnoreCase)),
                 });
             }
         }
@@ -176,7 +210,7 @@ public partial class Hardware : UserControl
 
         DisksList.ItemsSource = disks;
 
-        return disks.Select(x => x.Model).ToList();
+        return (disks.Select(x => x.Model).ToList(), osDrive);
     }
 
     public class DiskInfo
@@ -185,5 +219,8 @@ public partial class Hardware : UserControl
         public string Type { get; set; }
         public string DriveLetters { get; set; }
         public string Size { get; set; }
+        
+        public bool OSDrive { get; set; }
     }
 }
+

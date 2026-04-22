@@ -54,3 +54,6 @@ C:\Users\filip\Documents\Private\Projekte\WinToLin\WinToLin\bin\Debug\net9.0-win
 C:\Users\filip\Documents\Private\Projekte\WinToLin\WinToLin\bin\Debug\net9.0-windows\runtimes\win\lib\net9.0\Microsoft.Win32.SystemEvents.dll
 C:\Users\filip\Documents\Private\Projekte\WinToLin\WinToLin\bin\Debug\net9.0-windows\data\software_alternatives_db.json
 C:\Users\filip\Documents\Private\Projekte\WinToLin\WinToLin\bin\Debug\net9.0-windows\data\distros.json
+C:\Users\filip\Documents\Private\Projekte\WinToLin\WinToLin\obj\Debug\net9.0-windows\WinToLin.sourcelink.json
+C:\Users\filip\Documents\Private\Projekte\WinToLin\WinToLin\bin\Debug\net9.0-windows\CryptSharp.dll
+C:\Users\filip\Documents\Private\Projekte\WinToLin\WinToLin\bin\Debug\net9.0-windows\TimeZoneConverter.dll

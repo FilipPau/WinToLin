@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -50,7 +51,6 @@ namespace WinToLin.Steps
             OnSoftwareSelected(software.Name);
         }
 
-// Fired when a software is deselected
         private void Software_Unchecked(object sender, RoutedEventArgs e)
         {
             if (sender is not CheckBox cb) return;
@@ -59,7 +59,6 @@ namespace WinToLin.Steps
             OnSoftwareDeselected(software.Name);
         }
 
-// 🔥 THIS is the function you said you will replace
         private void OnSoftwareSelected(string name)
         {
             manager.AddSoftware(name);
@@ -233,6 +232,10 @@ namespace WinToLin.Steps
 
                     string name = sk?.GetValue("DisplayName") as string;
                     if (string.IsNullOrEmpty(name)) continue;
+
+                    
+                    name = Regex.Replace(name, @"\([^)]*\)", "");
+                    name = name.Replace(@"x86", "");
 
                     if (_hideRandomWinStuff &&
                         randomWinStuffPrefix.Any(x => name.Contains(x)))

@@ -1,0 +1,9 @@
+C:\Users\filip\Desktop\WinToLin.pdb
+C:\Users\filip\Desktop\data\distros.json
+C:\Users\filip\Desktop\data\software_alternatives_db.json
+C:\Users\filip\Desktop\D3DCompiler_47_cor3.dll
+C:\Users\filip\Desktop\PenImc_cor3.dll
+C:\Users\filip\Desktop\PresentationNative_cor3.dll
+C:\Users\filip\Desktop\vcruntime140_cor3.dll
+C:\Users\filip\Desktop\wpfgfx_cor3.dll
+C:\Users\filip\Desktop\WinToLin.exe

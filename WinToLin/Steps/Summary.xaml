@@ -3,10 +3,120 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:WinToLin.Steps"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
+             Loaded="Summary_Loaded"
+             d:DesignHeight="500" d:DesignWidth="900">
+
+    <Grid Margin="20">
+
+        <!-- Layout -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+
+        <!-- Main Grid -->
+        <Grid Grid.Row="1">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- 🐧 DISTRO -->
+            <Border Grid.Row="0" Grid.Column="0"
+                    Background="#1B1F28"
+                    CornerRadius="8"
+                    Padding="12"
+                    Margin="5">
+                <StackPanel>
+                    <TextBlock Text="🐧 Distro" FontWeight="Bold"/>
+                    <TextBlock x:Name="DistroText" Foreground="#AAAAAA"/>
+                </StackPanel>
+            </Border>
+
+            <!-- 💿 USB -->
+            <Border Grid.Row="0" Grid.Column="1"
+                    Background="#1B1F28"
+                    CornerRadius="8"
+                    Padding="12"
+                    Margin="5">
+                <StackPanel>
+                    <TextBlock Text="💿 USB" FontWeight="Bold"/>
+                    <TextBlock x:Name="UsbText" Foreground="#AAAAAA"/>
+                </StackPanel>
+            </Border>
+
+            <!-- 📦 BACKUP -->
+            <Border Grid.Row="0" Grid.Column="2"
+                    Background="#1B1F28"
+                    CornerRadius="8"
+                    Padding="12"
+                    Margin="5">
+                <StackPanel>
+                    <TextBlock Text="📦 Backup" FontWeight="Bold"/>
+
+                    <ScrollViewer Height="100">
+                        <ItemsControl x:Name="BackupList"/>
+                    </ScrollViewer>
+                </StackPanel>
+            </Border>
+
+            <!-- 🧩 SOFTWARE -->
+            <Border Grid.Row="1" Grid.Column="0"
+                    Background="#1B1F28"
+                    CornerRadius="8"
+                    Padding="12"
+                    Margin="5">
+                <StackPanel>
+                    <TextBlock Text="🧩 Software" FontWeight="Bold"/>
+
+                    <ScrollViewer Height="120">
+                        <ItemsControl x:Name="SoftwareList"/>
+                    </ScrollViewer>
+                </StackPanel>
+            </Border>
+
+            <!-- 🖥 GPU + NETWORK -->
+            <Border Grid.Row="1" Grid.Column="1"
+                    Background="#1B1F28"
+                    CornerRadius="8"
+                    Padding="12"
+                    Margin="5">
+                <StackPanel>
+                    <TextBlock Text="🖥 Hardware" FontWeight="Bold"/>
+
+                    <TextBlock Text="GPU:" FontWeight="SemiBold" Margin="0,5,0,0"/>
+                    <ItemsControl x:Name="GpuList"/>
+
+                    <TextBlock Text="Network:" FontWeight="SemiBold" Margin="0,5,0,0"/>
+                    <ItemsControl x:Name="NicList"/>
+                </StackPanel>
+            </Border>
+
+            <!-- 💾 DRIVES -->
+            <Border Grid.Row="1" Grid.Column="2"
+                    Background="#1B1F28"
+                    CornerRadius="8"
+                    Padding="12"
+                    Margin="5">
+                <StackPanel>
+                    <TextBlock Text="💾 Drives" FontWeight="Bold"/>
+
+                    <ScrollViewer Height="120">
+                        <ItemsControl x:Name="DriveList"/>
+                    </ScrollViewer>
+                </StackPanel>
+            </Border>
+
+        </Grid>
         
     </Grid>
 </UserControl>

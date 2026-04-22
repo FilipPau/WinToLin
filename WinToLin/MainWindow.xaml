@@ -7,6 +7,8 @@
         mc:Ignorable="d"
         ResizeMode="NoResize"
 
+
+        
         UseLayoutRounding="True"
         SnapsToDevicePixels="True" 
         
@@ -55,7 +57,7 @@
         </Grid>
 
         <Grid Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3">
-            <Button Margin="10" Width="180" HorizontalAlignment="Right" Click="GoNext_OnClick">Next</Button>
+            <Button x:Name="GoNextButton" Margin="10" Width="180" HorizontalAlignment="Right" Click="GoNext_OnClick">Next</Button>
             
             <Button Margin="10" Width="180" HorizontalAlignment="Left" Click="GoBack_OnClick" Visibility="Hidden" x:Name="BackButton">Back</Button>
         </Grid>

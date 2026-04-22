@@ -21,47 +21,46 @@
         <Border Grid.Row="0" Grid.Column="0" Margin="0,0,5,5" CornerRadius="5" Background="#333">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" /> <!-- Header -->
-                    <RowDefinition Height="*" />    <!-- Scrollable content -->
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
                 <TextBlock Text="Personal Files"
                            FontSize="16"
                            Foreground="White"
-                           Margin="6,6,6,6" />
+                           Margin="6" />
 
-                <ScrollViewer Grid.Row="1"
-                              VerticalScrollBarVisibility="Auto"
-                              HorizontalScrollBarVisibility="Disabled"
-                              Margin="6">
+                <ScrollViewer Grid.Row="1" Margin="6">
                     <ItemsControl x:Name="PersonalFilesList">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Border Padding="6" Margin="0,0,0,6" CornerRadius="5">
+                                <Border Padding="6" Margin="0,0,0,6" Background="#222" CornerRadius="5">
                                     <Grid VerticalAlignment="Center">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />  <!-- Checkbox -->
-                                            <ColumnDefinition Width="Auto" />  <!-- Icon (optional) -->
-                                            <ColumnDefinition Width="*" />     <!-- Text -->
-                                            <ColumnDefinition Width="Auto" />  <!-- Button -->
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
 
-                                        <CheckBox Grid.Column="0"
-                                                  IsChecked="{Binding Selected}"
-                                                  Margin="0,0,6,0" />
-
-
-                                        <StackPanel Grid.Column="2" Margin="0,0,6,0">
+                                        <StackPanel Grid.Column="0">
                                             <TextBlock Text="{Binding Name}" Foreground="White" />
                                             <TextBlock Text="{Binding Path}" FontSize="11" Foreground="#AAA" />
                                         </StackPanel>
 
-                                        <Button Grid.Column="3"
+                                        <Button Grid.Column="1"
                                                 Content="Open"
                                                 Width="70"
                                                 Height="24"
                                                 Click="OpenFolder_Click"
                                                 Tag="{Binding Path}" />
+
+                                        <Button Grid.Column="2"
+                                                Content="Remove"
+                                                Width="80"
+                                                Height="24"
+                                                Margin="6,0,0,0"
+                                                Click="RemoveItem_Click"
+                                                Tag="{Binding}" />
                                     </Grid>
                                 </Border>
                             </DataTemplate>
@@ -82,40 +81,39 @@
                 <TextBlock Text="Application Data"
                            FontSize="16"
                            Foreground="White"
-                           Margin="6,6,6,6" />
+                           Margin="6" />
 
-                <ScrollViewer Grid.Row="1"
-                              VerticalScrollBarVisibility="Auto"
-                              HorizontalScrollBarVisibility="Disabled"
-                              Margin="6">
+                <ScrollViewer Grid.Row="1" Margin="6">
                     <ItemsControl x:Name="AppDataList">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Border Padding="6" Margin="0,0,0,6" Background="#222" CornerRadius="5">
                                     <Grid VerticalAlignment="Center">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />  <!-- Checkbox -->
-                                            <ColumnDefinition Width="Auto" />  <!-- Icon (optional) -->
-                                            <ColumnDefinition Width="*" />     <!-- Text -->
-                                            <ColumnDefinition Width="Auto" />  <!-- Button -->
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
 
-                                        <CheckBox Grid.Column="0"
-                                                  IsChecked="{Binding Selected}"
-                                                  Margin="0,0,6,0" />
-
-
-                                        <StackPanel Grid.Column="2" Margin="0,0,6,0">
+                                        <StackPanel Grid.Column="0">
                                             <TextBlock Text="{Binding Name}" Foreground="White" />
                                             <TextBlock Text="{Binding Path}" FontSize="11" Foreground="#AAA" />
                                         </StackPanel>
 
-                                        <Button Grid.Column="3"
+                                        <Button Grid.Column="1"
                                                 Content="Open"
                                                 Width="70"
                                                 Height="24"
                                                 Click="OpenFolder_Click"
                                                 Tag="{Binding Path}" />
+
+                                        <Button Grid.Column="2"
+                                                Content="Remove"
+                                                Width="80"
+                                                Height="24"
+                                                Margin="6,0,0,0"
+                                                Click="RemoveItem_Click"
+                                                Tag="{Binding}" />
                                     </Grid>
                                 </Border>
                             </DataTemplate>
@@ -125,7 +123,7 @@
             </Grid>
         </Border>
 
-        <!-- CUSTOM LOCATIONS (Right Panel) -->
+        <!-- CUSTOM LOCATIONS -->
         <Border Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Margin="5,0,0,0" CornerRadius="5" Background="#333">
             <Grid>
                 <Grid.RowDefinitions>
@@ -137,42 +135,39 @@
                 <TextBlock Text="Custom Locations"
                            FontSize="16"
                            Foreground="White"
-                           Margin="6,6,6,6" />
+                           Margin="6" />
 
-                <ScrollViewer Grid.Row="1"
-                              VerticalScrollBarVisibility="Auto"
-                              HorizontalScrollBarVisibility="Disabled"
-                              Margin="6">
+                <ScrollViewer Grid.Row="1" Margin="6">
                     <ItemsControl x:Name="CustomLocationsList">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Border Padding="6" Margin="0,0,0,6" Background="#222" CornerRadius="5">
                                     <Grid VerticalAlignment="Center">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />  <!-- Checkbox -->
-                                            <ColumnDefinition Width="Auto" />  <!-- Icon (optional) -->
-                                            <ColumnDefinition Width="*" />     <!-- Text -->
-                                            <ColumnDefinition Width="Auto" />  <!-- Button -->
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
 
-                                        <CheckBox Grid.Column="0"
-                                                  IsChecked="{Binding Selected}"
-                                                  Margin="0,0,6,0"
-                                                  Checked="BackupItem_Checked"
-                                                  Unchecked="BackupItem_Unchecked"/>
-
-
-                                        <StackPanel Grid.Column="2" Margin="0,0,6,0">
+                                        <StackPanel Grid.Column="0">
                                             <TextBlock Text="{Binding Name}" Foreground="White" />
                                             <TextBlock Text="{Binding Path}" FontSize="11" Foreground="#AAA" />
                                         </StackPanel>
 
-                                        <Button Grid.Column="3"
+                                        <Button Grid.Column="1"
                                                 Content="Open"
                                                 Width="70"
                                                 Height="24"
                                                 Click="OpenFolder_Click"
                                                 Tag="{Binding Path}" />
+
+                                        <Button Grid.Column="2"
+                                                Content="Remove"
+                                                Width="80"
+                                                Height="24"
+                                                Margin="6,0,0,0"
+                                                Click="RemoveItem_Click"
+                                                Tag="{Binding}" />
                                     </Grid>
                                 </Border>
                             </DataTemplate>
@@ -189,10 +184,10 @@
             </Grid>
         </Border>
 
-        <!-- LOADING OVERLAY -->
+        <!-- LOADING -->
         <Grid x:Name="LoadingOverlay"
               Grid.RowSpan="2"
-              Grid.ColumnSpan="3"
+              Grid.ColumnSpan="2"
               Background="#AA101010"
               Visibility="Visible">
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -200,13 +195,11 @@
                              Width="150"
                              Height="4"
                              Foreground="#2E7DFF"
-                             Background="#333"
-                             BorderThickness="0" />
+                             Background="#333"/>
                 <TextBlock Text="Loading backup locations..."
                            Foreground="White"
-                           FontSize="14"
                            Margin="0,15,0,0"
-                           HorizontalAlignment="Center" />
+                           HorizontalAlignment="Center"/>
             </StackPanel>
         </Grid>
     </Grid>

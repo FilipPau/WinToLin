@@ -1,0 +1,81 @@
+﻿{
+  "ubuntu_migration_buckets": {
+    "native_apt": [
+      "vlc",
+      "firefox",
+      "chromium-browser",
+      "blender",
+      "gimp",
+      "krita",
+      "inkscape",
+      "darktable",
+      "kdenlive",
+      "openshot",
+      "shotcut",
+      "audacity",
+      "handbrake",
+      "calibre",
+      "filezilla",
+      "qbittorrent",
+      "deluge",
+      "putty",
+      "virtualbox",
+      "git",
+      "python3",
+      "openjdk-17-jdk",
+      "thunderbird",
+      "7zip",
+      "p7zip-full"
+    ],
+    "snap_packages": [
+      {
+        "name": "discord"
+      },
+      {
+        "name": "slack"
+      },
+      {
+        "name": "skype"
+      },
+      {
+        "name": "telegram-desktop"
+      },
+      {
+        "name": "spotify"
+      },
+      {
+        "name": "obs-studio"
+      },
+      {
+        "name": "postman"
+      },
+      {
+        "name": "dbeaver"
+      },
+      {
+        "name": "code"
+      },
+      {
+        "name": "intellij-idea-community"
+      },
+      {
+        "name": "pycharm-community"
+      },
+      {
+        "name": "eclipse"
+      },
+      {
+        "name": "android-studio"
+      },
+      {
+        "name": "powershell"
+      },
+      {
+        "name": "multipass"
+      },
+      {
+        "name": "steam"
+      }
+    ]
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "system": {
+    "distro": "",
+    "language": "de_DE.UTF-8",
+    "timezone": "Europe/Berlin",
+    "keyboard": "de"
+  },
+  "packages": [],
+  "backup": {
+    "paths": [],
+    "strategy": "mirror",
+    "target": "/home/user",
+    "preserveStructure": true
+  },
+  "hardware": {
+    "gpus": [
+      "AMD Radeon RX 7600"
+    ],
+    "network": [
+      "Intel(R) Wi-Fi 6 AX200 160MHz"
+    ],
+    "drives": [
+      "Samsung SSD 980 500GB",
+      "Samsung SSD 990 EVO 1TB"
+    ],
+    "osTargetDrive": "C"
+  },
+  "usb": {
+    "deviceLetter": "",
+    "deviceId": ""
+  },
+  "network": {
+    "wifiSsid": "Magenta057388",
+    "wifiProfilePath": "C:\\Users\\filip\\Desktop\\WifiProfilesExport"
+  },
+  "postInstall": {
+    "restoreFiles": true,
+    "restoreScript": "post-install.sh",
+    "fixPermissions": true,
+    "runFirstBoot": true
+  },
+  "meta": {
+    "version": "2.0",
+    "createdAt": "2026-04-19T17:22:42.3953745Z",
+    "generator": "WinToLin Migrator"
+  }
+}
