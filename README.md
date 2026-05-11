@@ -6,16 +6,12 @@
 
 ---
 
-## ✨ Features
+## Features
 
-- 🔍 **System Analysis**
-  - Detects your hardware and installed applications
+- **System Analysis**
+  - Detects your installed applications
   - Provides compatibility insights
-
-- 🐧 **Smart Distro Selection**
-  - Recommends the best Linux distribution for your system
-  - Beginner-friendly suggestions
-
+    
 - 📦 **Automatic Backup**
   - Securely backs up important files (Documents, Pictures, etc.)
   - Prevents data loss during migration
@@ -35,19 +31,18 @@
 
 ---
 
-## 🎯 Goal
+## Goal
 
 WinToLin aims to remove the biggest barriers when switching to Linux:
 
 - ❌ Fear of losing data  
-- ❌ Confusion about distributions  
 - ❌ Uncertainty about software compatibility  
 
-👉 By automating the process, WinToLin makes migration **safe, simple, and accessible for everyone**.
+ By automating the process, WinToLin makes migration **safe, simple, and accessible for everyone**.
 
 ---
 
-## 🧠 How It Works
+## How It Works
 
 1. **Analyze** your system  
 2. **Choose** a Linux distribution  
@@ -58,7 +53,7 @@ WinToLin aims to remove the biggest barriers when switching to Linux:
 
 ---
 
-## 🛡 Safety First
+## Safety First
 
 WinToLin is designed with safety in mind:
 
@@ -68,7 +63,7 @@ WinToLin is designed with safety in mind:
 
 ---
 
-## 🌍 Why WinToLin?
+## Why WinToLin?
 
 Switching to Linux shouldn’t require hours of research and manual setup.
 
@@ -83,7 +78,6 @@ WinToLin transforms the experience into:
 Contributions are welcome!
 
 If you want to help:
-- Improve hardware detection
 - Expand app compatibility database
 - Enhance UI/UX
 
