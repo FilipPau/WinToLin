@@ -1,7 +1,7 @@
 C:\Users\filip\Desktop\outwinlin\WinToLin.pdb
-C:\Users\filip\Desktop\outwinlin\data\distros.json
-C:\Users\filip\Desktop\outwinlin\data\software_alternatives_db.json
-C:\Users\filip\Desktop\outwinlin\data\ubuntu_packages.json
+C:\Users\filip\Desktop\outwinlin\Data\distros.json
+C:\Users\filip\Desktop\outwinlin\Data\software_alternatives_db.json
+C:\Users\filip\Desktop\outwinlin\Data\ubuntu_packages.json
 C:\Users\filip\Desktop\outwinlin\D3DCompiler_47_cor3.dll
 C:\Users\filip\Desktop\outwinlin\PenImc_cor3.dll
 C:\Users\filip\Desktop\outwinlin\PresentationNative_cor3.dll

@@ -1,11 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "AjhqErRan2M=",
+  "dgSpecHash": "MarKj1u97oE=",
   "success": true,
   "projectFilePath": "C:\\Users\\filip\\Documents\\Private\\Projekte\\WinToLin\\WinToLin\\WinToLin.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\filip\\.nuget\\packages\\cryptsharpofficial\\2.1.0\\cryptsharpofficial.2.1.0.nupkg.sha512",
-    "C:\\Users\\filip\\.nuget\\packages\\microsoft.net.illink.tasks\\9.0.13\\microsoft.net.illink.tasks.9.0.13.nupkg.sha512",
     "C:\\Users\\filip\\.nuget\\packages\\microsoft.win32.systemevents\\10.0.3\\microsoft.win32.systemevents.10.0.3.nupkg.sha512",
     "C:\\Users\\filip\\.nuget\\packages\\sharpgen.runtime\\2.4.2-beta\\sharpgen.runtime.2.4.2-beta.nupkg.sha512",
     "C:\\Users\\filip\\.nuget\\packages\\sharpgen.runtime.com\\2.4.2-beta\\sharpgen.runtime.com.2.4.2-beta.nupkg.sha512",
@@ -16,16 +15,13 @@
     "C:\\Users\\filip\\.nuget\\packages\\timezoneconverter\\7.2.0\\timezoneconverter.7.2.0.nupkg.sha512",
     "C:\\Users\\filip\\.nuget\\packages\\vortice.directx\\3.8.3\\vortice.directx.3.8.3.nupkg.sha512",
     "C:\\Users\\filip\\.nuget\\packages\\vortice.dxgi\\3.8.3\\vortice.dxgi.3.8.3.nupkg.sha512",
-    "C:\\Users\\filip\\.nuget\\packages\\vortice.mathematics\\2.1.0\\vortice.mathematics.2.1.0.nupkg.sha512",
-    "C:\\Users\\filip\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\9.0.13\\microsoft.netcore.app.runtime.win-x64.9.0.13.nupkg.sha512",
-    "C:\\Users\\filip\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\9.0.13\\microsoft.windowsdesktop.app.runtime.win-x64.9.0.13.nupkg.sha512",
-    "C:\\Users\\filip\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\9.0.13\\microsoft.aspnetcore.app.runtime.win-x64.9.0.13.nupkg.sha512"
+    "C:\\Users\\filip\\.nuget\\packages\\vortice.mathematics\\2.1.0\\vortice.mathematics.2.1.0.nupkg.sha512"
   ],
   "logs": [
     {
       "code": "NU1701",
       "level": "Warning",
-      "message": "Das Paket \"CryptSharpOfficial 2.1.0\" wurde nicht mit dem Projektzielframework \"net9.0-windows7.0\", sondern mit \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1\" wiederhergestellt. Dieses Paket ist mit Ihrem Projekt möglicherweise nicht vollständig kompatibel.",
+      "message": "Package 'CryptSharpOfficial 2.1.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net9.0-windows7.0'. This package may not be fully compatible with your project.",
       "projectPath": "C:\\Users\\filip\\Documents\\Private\\Projekte\\WinToLin\\WinToLin\\WinToLin.csproj",
       "warningLevel": 1,
       "filePath": "C:\\Users\\filip\\Documents\\Private\\Projekte\\WinToLin\\WinToLin\\WinToLin.csproj",

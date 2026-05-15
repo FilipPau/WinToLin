@@ -18,65 +18,105 @@
       <None Update="data\ubuntu_packages.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+      <None Update="Data\distros.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Data\software_alternatives_db.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Data\ubuntu_packages.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
     <ItemGroup>
       <None Remove="img\WinToLinLogo.png" />
-      <Resource Include="img\WinToLinLogo.png">
+      <Resource Include="Img\WinToLinLogo.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
       <None Remove="img\distros\arch.png" />
-      <Resource Include="img\distros\arch.png">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Resource Include="Img\distros\arch.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Resource>
       <None Remove="img\distros\debian.png" />
-      <Resource Include="img\distros\debian.png">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Resource>
       <None Remove="img\distros\elementary.png" />
-      <Resource Include="img\distros\elementary.png">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Resource>
       <None Remove="img\distros\fedora.png" />
-      <Resource Include="img\distros\fedora.png">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Resource Include="Img\distros\fedora.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Resource>
       <None Remove="img\distros\kali.png" />
-      <Resource Include="img\distros\kali.png">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Resource>
       <None Remove="img\distros\manjaro.png" />
-      <Resource Include="img\distros\manjaro.png">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Resource>
       <None Remove="img\distros\mint.png" />
-      <Resource Include="img\distros\mint.png">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Resource Include="Img\distros\mint.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Resource>
       <None Remove="img\distros\mx.png" />
-      <Resource Include="img\distros\mx.png">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Resource>
       <None Remove="img\distros\opensuse.png" />
-      <Resource Include="img\distros\opensuse.png">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Resource>
       <None Remove="img\distros\popos.png" />
-      <Resource Include="img\distros\popos.png">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Resource>
       <None Remove="img\distros\ubuntu.png" />
-      <Resource Include="img\distros\ubuntu.png">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Resource Include="Img\distros\ubuntu.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Resource>
       <None Remove="img\distros\zorin.png" />
-      <Resource Include="img\distros\zorin.png">
+      <None Remove="img\icon_small.png" />
+      <Resource Include="Img\icon_small.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <None Remove="fonts\JosefinSans-Regular.ttf" />
+      <Resource Include="Fonts\JosefinSans-Regular.ttf">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <None Remove="Fonts\JosefinSans-Bold.ttf" />
+      <Resource Include="Fonts\JosefinSans-Bold.ttf">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <None Remove="Img\icon_big.png" />
+      <Resource Include="Img\icon_big.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Resource>
+      <None Remove="Fonts\FrederickatheGreat-Regular.ttf" />
+      <Resource Include="Fonts\FrederickatheGreat-Regular.ttf">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <None Remove="Img\background\bg_square_lines.png" />
+      <Resource Include="Img\background\bg_square_lines.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Resource>
+      <None Remove="Img\background\bg_square_hexes.png" />
+      <Resource Include="Img\background\bg_square_hexes.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Resource>
     </ItemGroup>
 
     <ItemGroup>
-      <Page Update="Steps\Welcome.xaml">
+      <Page Update="Views\Steps\Backup.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="Views\Steps\Completion.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="Views\Steps\Distro.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="Views\Steps\Hardware.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="Views\Steps\Migration.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="Views\Steps\Software.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="Views\Steps\Summary.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="Views\Steps\USBSetup.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="Views\Steps\Welcome.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="Views\Windows\MainWindow.xaml">
         <Generator>MSBuild:Compile</Generator>
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
@@ -89,10 +129,6 @@
       <PackageReference Include="System.Management" Version="10.0.3" />
       <PackageReference Include="TimeZoneConverter" Version="7.2.0" />
       <PackageReference Include="Vortice.DXGI" Version="3.8.3" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Migrator\Helper\MigrationSteps\" />
     </ItemGroup>
 
 </Project>

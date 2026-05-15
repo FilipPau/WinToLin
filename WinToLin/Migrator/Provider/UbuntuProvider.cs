@@ -18,7 +18,7 @@ namespace WinToLin.Migration
         {
             if (!File.Exists(isoPath)) throw new FileNotFoundException("Source ISO not found", isoPath);
 
-            var migrationPaths = Manager.Instance.BackupPaths;
+            var migrationPaths = ConfigManager.Instance.BackupPaths;
 
             Directory.CreateDirectory(workDirectory);
             string migrationArchivesDir = Path.Combine(workDirectory, "migration_archives");
@@ -28,7 +28,7 @@ namespace WinToLin.Migration
 
             Directory.CreateDirectory(migrationArchivesDir);
 
-            foreach (var path in migrationPaths)
+            foreach (var (path, _) in migrationPaths)
             {
                 if (Directory.Exists(path))
                 {
@@ -42,23 +42,25 @@ namespace WinToLin.Migration
             string outputIsoPath = Path.Combine(workDirectory, "WinToLin_Custom.iso");
             string xorrisoPath = "xorriso";
 
+            
             string yamlPath = Path.Combine(workDirectory, "autoinstall.yaml");
             string metaData = Path.Combine(workDirectory, "meta-data");
             string userData = Path.Combine(workDirectory, "user-data");
             string grubPath = Path.Combine(workDirectory, "grub.cfg");
 
-            string autoinstallContent = GenerateYamlContent(migrationPaths);
+            
+            string autoinstallContent = GenerateYamlContent(migrationPaths.Select(x => x.Value).ToList());
             await File.WriteAllTextAsync(yamlPath, autoinstallContent);
             await File.WriteAllTextAsync(metaData, "");
             await File.WriteAllTextAsync(userData, autoinstallContent);
             await File.WriteAllTextAsync(grubPath, GenerateGrubContent());
 
-            await InjectAndBuildAsync(isoPath, outputIsoPath, xorrisoPath, workDirectory);
+            await InjectAndBuildAsync(isoPath, outputIsoPath, xorrisoPath);
         }
 
         private static string GenerateYamlContent(List<string> migrationPaths)
         {
-            var manager = Manager.Instance;
+            var manager = ConfigManager.Instance;
             var appData = GetAppBuckets();
 
             var aptPackages = new List<string>();
@@ -223,7 +225,7 @@ namespace WinToLin.Migration
             return filename.Replace(" ", "_");
         }
 
-        private static async Task InjectAndBuildAsync(string inIso, string outIso, string xorriso, string workDir)
+        private static async Task InjectAndBuildAsync(string inIso, string outIso, string xorriso)
         {
             // Always leave the paths as is, xorriso needs them to be so, pls
             StringBuilder xorArgs = new StringBuilder();

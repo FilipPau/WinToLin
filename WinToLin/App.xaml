@@ -1,155 +1,162 @@
 ﻿<Application x:Class="WinToLin.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             StartupUri="MainWindow.xaml">
+             StartupUri="/views/SelectMode.xaml">
 
 
     <Application.Resources>
 
+        <!-- New Design -->
 
-        <Style TargetType="Label">
-            <Setter Property="Foreground" Value="#E0E0E0" />
-            <Setter Property="FontWeight" Value="SemiBold" />
+        <SolidColorBrush x:Key="BackgroundColor" Color="#FFFFFF" />
+
+        <SolidColorBrush x:Key="DarkTextColor" Color="#000000" />
+        <SolidColorBrush x:Key="LightTextColor" Color="#FFFFFF" />
+        <SolidColorBrush x:Key="AccentTextColor" Color="#a3a2a2" />
+
+        <SolidColorBrush x:Key="InteractColor" Color="#3083DC" />
+        <SolidColorBrush x:Key="ButtonHoverColor" Color="#2462A5" />
+        <SolidColorBrush x:Key="ButtonNotActiveColor" Color="#a3a2a2" />
+
+        <SolidColorBrush x:Key="AccentColor1" Color="#4E3187" />
+        <SolidColorBrush x:Key="AccentColor2" Color="#F8FFE5" />
+        <SolidColorBrush x:Key="TextAccentColor" Color="#7DDE92" />
+        <SolidColorBrush x:Key="AccentColor5" Color="#2EBFA5" />
+
+        <Style TargetType="TextBlock" x:Key="TitleLabel">
+            <Setter Property="Foreground" Value="{StaticResource DarkTextColor}" />
+            <Setter Property="FontSize" Value="35" />
+            <Setter Property="FontFamily" Value="./Fonts/#Josefin Sans Bold" />
         </Style>
 
-        <Style TargetType="CheckBox">
-            <Setter Property="Foreground" Value="White" />
-            <Setter Property="FontSize" Value="14" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="CheckBox">
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-
-                            <!-- Checkbox Box -->
-                            <Border x:Name="Box"
-                                    Width="14"
-                                    Height="14"
-                                    CornerRadius="2"
-                                    Background="#2B2B2B"
-                                    BorderBrush="#3F3F46"
-                                    BorderThickness="1"
-                                    VerticalAlignment="Center"
-                                    HorizontalAlignment="Center">
-
-                                <!-- Checkmark -->
-                                <Path x:Name="CheckMark"
-                                      Visibility="Collapsed"
-                                      Stroke="#4CAF50"
-                                      StrokeThickness="2"
-                                      Data="M 2 7 L 6 11 L 12 3"
-                                      Stretch="Uniform"
-                                      HorizontalAlignment="Center"
-                                      VerticalAlignment="Center" />
-                            </Border>
-
-                            <!-- Text -->
-                            <ContentPresenter Margin="6,0,0,0"
-                                              VerticalAlignment="Center" />
-                        </StackPanel>
-
-                        <ControlTemplate.Triggers>
-
-                            <!-- Checked -->
-                            <Trigger Property="IsChecked" Value="True">
-                                <Setter TargetName="CheckMark" Property="Visibility" Value="Visible" />
-                            </Trigger>
-
-                            <!-- Hover -->
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Box" Property="Background" Value="#35353C" />
-                            </Trigger>
-
-                            <!-- Disabled -->
-                            <Trigger Property="IsEnabled" Value="False">
-                                <Setter Property="Opacity" Value="0.4" />
-                            </Trigger>
-
-                        </ControlTemplate.Triggers>
-
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
+        <Style TargetType="Run" x:Key="TitleLabelAccent">
+            <Setter Property="Foreground" Value="{StaticResource TextAccentColor}" />
+            <Setter Property="FontSize" Value="35" />
+            <Setter Property="FontFamily" Value="./Fonts/#Fredericka the Great" />
         </Style>
+
 
         <Style TargetType="TextBlock">
-            <Setter Property="Foreground" Value="#E0E0E0" />
-            <Setter Property="FontWeight" Value="Medium" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="FontFamily" Value="./Fonts/#Josefin Sans Bold" />
         </Style>
+
+
+        <Style TargetType="TextBlock" x:Key="DescriptionLabel">
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="FontFamily" Value="./Fonts/#Josefin Sans Bold" />
+            <Setter Property="Foreground" Value="{StaticResource AccentTextColor}" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="TextAlignment" Value="Center" />
+        </Style>
+
+
+        <!-- Advanced Styles -->
 
         <Style TargetType="Button">
-            <Setter Property="Background" Value="RoyalBlue" />
-            <Setter Property="FontWeight" Value="Medium" />
-        </Style>
+            <Setter Property="Background" Value="{StaticResource InteractColor}" />
+            <Setter Property="Foreground" Value="{StaticResource LightTextColor}" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="Padding" Value="10, 5" />
 
-        <!-- Modern minimalistic primary panel style -->
-        <Style TargetType="Grid">
-            <Setter Property="Background">
-                <Setter.Value>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                        <GradientStop Color="#1B1F28" Offset="0.0" />
-                        <GradientStop Color="#14171E" Offset="1.0" />
-                    </LinearGradientBrush>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="Effect">
-                <Setter.Value>
-                    <DropShadowEffect Color="#000000" BlurRadius="12" ShadowDepth="2" Opacity="0.2" />
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <Style TargetType="ToolTip">
-            <Setter Property="Background" Value="#333333" />
-            <Setter Property="Foreground" Value="White" />
-            <Setter Property="FontSize" Value="14" />
-            <Setter Property="Padding" Value="10,6" />
-            <Setter Property="BorderBrush" Value="#444444" />
-            <Setter Property="BorderThickness" Value="1" />
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="ToolTip">
-                        <Border x:Name="Border"
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
                                 Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                Padding="{TemplateBinding Padding}">
-                            <ContentPresenter Content="{TemplateBinding Content}"
-                                              ContentTemplate="{TemplateBinding ContentTemplate}"
-                                              TextBlock.Foreground="{TemplateBinding Foreground}" />
+                                CornerRadius="25"
+                                Padding="3">
+
+                            <ContentPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center" />
                         </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background"
+                                        Value="{StaticResource ButtonHoverColor}" />
+                            </Trigger>
+
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background"
+                                        Value="{StaticResource InteractColor}" />
+                            </Trigger>
+                            
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="border" Property="Background"
+                                        Value="{StaticResource ButtonNotActiveColor}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
 
-        <!-- Minimal ScrollBar Buttons Style first -->
+
+        <!-- Minimal ScrollBar Buttons (Hidden) -->
         <Style x:Key="ScrollBarButtonStyle" TargetType="RepeatButton">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="BorderBrush" Value="Transparent" />
-            <Setter Property="Height" Value="0" />
-            <Setter Property="Width" Value="0" />
+            <Setter Property="IsTabStop" Value="false" />
+            <Setter Property="Focusable" Value="false" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RepeatButton">
+                        <Border Background="Transparent" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
 
-        <!-- Custom ScrollBar Style -->
+        <!-- Modern Thumb Style -->
+        <Style x:Key="ScrollBarThumbStyle" TargetType="Thumb">
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Setter Property="IsTabStop" Value="false" />
+            <Setter Property="Focusable" Value="false" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Thumb">
+                        <!-- Rounded, subtle thumb to match the 'Storage Bar' design -->
+                        <Border x:Name="ThumbVisual"
+                                Background="#CBD5E0"
+                                CornerRadius="4"
+                                Margin="2,0" />
+                        <ControlTemplate.Triggers>
+                            <!-- Darkens slightly on hover to match button interactions -->
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ThumbVisual" Property="Background" Value="#94A3B8" />
+                            </Trigger>
+                            <Trigger Property="IsDragging" Value="True">
+                                <Setter TargetName="ThumbVisual" Property="Background" Value="#64748B" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Custom ScrollBar Redesign -->
         <Style TargetType="ScrollBar">
             <Setter Property="Width" Value="8" />
             <Setter Property="Background" Value="Transparent" />
-            <Setter Property="Foreground" Value="#4D90FE" />
+            <Setter Property="Margin" Value="2,0" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ScrollBar">
                         <Grid Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
-                            <!-- Track -->
                             <Track Name="PART_Track" IsDirectionReversed="True" Focusable="False">
                                 <Track.DecreaseRepeatButton>
-                                    <RepeatButton Command="ScrollBar.LineUpCommand"
+                                    <RepeatButton Command="ScrollBar.PageUpCommand"
                                                   Style="{StaticResource ScrollBarButtonStyle}" />
                                 </Track.DecreaseRepeatButton>
                                 <Track.Thumb>
-                                    <Thumb Background="#4D90FE" />
+                                    <Thumb Style="{StaticResource ScrollBarThumbStyle}" />
                                 </Track.Thumb>
                                 <Track.IncreaseRepeatButton>
-                                    <RepeatButton Command="ScrollBar.LineDownCommand"
+                                    <RepeatButton Command="ScrollBar.PageDownCommand"
                                                   Style="{StaticResource ScrollBarButtonStyle}" />
                                 </Track.IncreaseRepeatButton>
                             </Track>
@@ -158,6 +165,12 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+
+        <!-- Advanced Styles End -->
+
+        <!-- New Design End -->
+
 
     </Application.Resources>
 </Application>

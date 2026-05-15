@@ -2,7 +2,6 @@
   "steam": {"type": "native"},
   "discord": {"type": "native"},
   "vlc": {"type": "native"},
-  "google chrome": {"type": "native"},
   "firefox": {"type": "native"},
   "chromium": {"type": "native"},
   "skype": {"type": "native"},

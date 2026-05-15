@@ -5,7 +5,7 @@
     "Description": "User-friendly and widely supported Linux distribution.",
     "UseCase": "Best for beginners and general use",
     "DownloadUrl": "https://at.ubuntu.niranjan.co/24.04.4/ubuntu-24.04.4-desktop-amd64.iso",
-    "ImagePath": "../img/distros/ubuntu.png"
+    "ImagePath": "/Img/distros/ubuntu.png"
   },
   {
     "Name": "Fedora",
@@ -13,7 +13,7 @@
     "Description": "Cutting-edge features with strong developer focus.",
     "UseCase": "Best for developers",
     "DownloadUrl": "https://mirror.plusline.net/fedora/linux/releases/43/KDE/x86_64/iso/Fedora-KDE-Desktop-Live-43-1.6.x86_64.iso",
-    "ImagePath": "../img/distros/fedora.png"
+    "ImagePath": "/Img/distros/fedora.png"
   },
   {
     "Name": "Linux Mint",
@@ -21,15 +21,7 @@
     "Description": "Simple, stable, and familiar interface.",
     "UseCase": "Best Windows alternative",
     "DownloadUrl": "https://pub.linuxmint.io/stable/22.3/linuxmint-22.3-cinnamon-64bit.iso",
-    "ImagePath": "../img/distros/linuxmint.png"
-  },
-  {
-    "Name": "Debian",
-    "Base": "Independent",
-    "Description": "Stable and reliable Linux distribution with a large package repository.",
-    "UseCase": "Servers, stability-focused users",
-    "DownloadUrl": "https://laotzu.ftp.acc.umu.se/debian-cd/13.4.0-live/amd64/iso-hybrid/debian-live-13.4.0-amd64-cinnamon.iso",
-    "ImagePath": "../img/distros/debian.png"
+    "ImagePath": "/Img/distros/mint.png"
   },
   {
     "Name": "Arch Linux",
@@ -37,46 +29,6 @@
     "Description": "Highly customizable minimal Linux system for advanced users.",
     "UseCase": "Advanced users, DIY Linux setups",
     "DownloadUrl": "https://fastly.mirror.pkgbuild.com/iso/2026.03.01/archlinux-2026.03.01-x86_64.iso",
-    "ImagePath": "../img/distros/archlinux.png"
-  },
-  {
-    "Name": "Pop!_OS",
-    "Base": "Ubuntu",
-    "Description": "Optimized for performance and gaming, especially with NVIDIA GPUs.",
-    "UseCase": "Gaming, creators, high-performance desktops",
-    "DownloadUrl": "https://iso.pop-os.org/24.04/amd64/generic/23/pop-os_24.04_amd64_generic_23.iso",
-    "ImagePath": "../img/distros/popos.png"
-  },
-  {
-    "Name": "Manjaro",
-    "Base": "Arch Linux",
-    "Description": "User-friendly Arch-based Linux with easy installation and hardware detection.",
-    "UseCase": "Beginners who want Arch features",
-    "DownloadUrl": "https://download.manjaro.org/kde/26.0.3/manjaro-kde-26.0.3-260228-linux618.iso",
-    "ImagePath": "../img/distros/manjaro.png"
-  },
-  {
-    "Name": "Elementary OS",
-    "Base": "Ubuntu",
-    "Description": "Elegant Linux distribution focused on simplicity and aesthetics.",
-    "UseCase": "Users who want macOS-like experience",
-    "DownloadUrl": "https://ams3.dl.elementary.io/download/MTc3NDkwMTk5Nw==/elementaryos-8.1-stable-amd64.20260219.iso",
-    "ImagePath": "../img/distros/elementaryos.png"
-  },
-  {
-    "Name": "Zorin OS",
-    "Base": "Ubuntu",
-    "Description": "Windows-like Linux distribution designed for smooth transition from Windows.",
-    "UseCase": "Windows users switching to Linux",
-    "DownloadUrl": "https://ftp.icm.edu.pl/pub/linux/zorinos/18/Zorin-OS-18-Core-64-bit-r3.iso",
-    "ImagePath": "../img/distros/zorin.png"
-  },
-  {
-    "Name": "Kali Linux",
-    "Base": "Debian",
-    "Description": "Security-focused Linux distribution for penetration testing and ethical hacking.",
-    "UseCase": "Security professionals, ethical hackers",
-    "DownloadUrl": "https://kali.download/base-images/kali-2026.1/kali-linux-2026.1-installer-amd64.iso",
-    "ImagePath": "../img/distros/kali.png"
+    "ImagePath": "/Img/distros/arch.png"
   }
 ]

@@ -1,0 +1,153 @@
+﻿<UserControl x:Class="WinToLin.Views.Steps.Summary"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             Background="White"
+             d:DesignHeight="600" d:DesignWidth="1000">
+
+    <UserControl.Resources>
+        <Style x:Key="MetricLabel" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#94A3B8"/>
+            <Setter Property="Margin" Value="0,0,0,12"/>
+        </Style>
+
+        <Style x:Key="ActionLink" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#3182CE"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="0,8"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="#2C5282"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <StackPanel Margin="48,40">
+            
+            <!-- HEADER: OS & USB -->
+            <Grid Margin="0,0,0,50">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="DISTRIBUTION" Style="{StaticResource MetricLabel}"/>
+                    <TextBlock x:Name="DistroText" FontSize="32" FontWeight="Black" Foreground="#1E293B" Text="Ubuntu"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2">
+                    <TextBlock Text="TARGET DRIVE" Style="{StaticResource MetricLabel}"/>
+                    <TextBlock x:Name="UsbText" FontSize="32" FontWeight="Light" Foreground="#64748B" Text="Drive D:\"/>
+                </StackPanel>
+            </Grid>
+
+            <!-- SPLIT CONTENT: APPS (LEFT) & FILES (RIGHT) -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="48"/> <!-- Spacer -->
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- LEFT SIDE: SOFTWARE -->
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="APPLICATIONS" Style="{StaticResource MetricLabel}"/>
+                    
+                    <TextBlock x:Name="NoAppsText" Text="No additional software selected" 
+                               Foreground="#CBD5E0" FontSize="14" FontStyle="Italic" 
+                               Visibility="Collapsed" Margin="0,4"/>
+
+                    <ItemsControl x:Name="SoftwarePreview" Margin="0,4">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Background="#F1F5F9" CornerRadius="12" Padding="12,6" Margin="0,0,8,8">
+                                    <TextBlock Text="{Binding}" FontSize="13" Foreground="#334155" FontWeight="SemiBold"/>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    
+                    <Button x:Name="SoftwareViewBtn" Content="View full list →" Style="{StaticResource ActionLink}" Click="ShowSoftwareModal"/>
+                </StackPanel>
+
+                <!-- RIGHT SIDE: BACKUP -->
+                <StackPanel Grid.Column="2">
+                    <TextBlock Text="FILES &amp; DATA" Style="{StaticResource MetricLabel}"/>
+                    
+                    <TextBlock x:Name="NoBackupText" Text="No local files selected for migration" 
+                               Foreground="#CBD5E0" FontSize="14" FontStyle="Italic" 
+                               Visibility="Collapsed" Margin="0,4"/>
+
+                    <ItemsControl x:Name="BackupPreview" Margin="0,4">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="#F1F5F9" BorderThickness="0,0,0,1" Padding="0,8">
+                                    <TextBlock Text="{Binding}" FontSize="14" Foreground="#475569" TextTrimming="CharacterEllipsis"/>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    
+                    <Button x:Name="BackupViewBtn" Content="Manage paths →" Style="{StaticResource ActionLink}" Click="ShowBackupModal" Margin="0,4,0,0"/>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+
+        <!-- MODAL OVERLAY -->
+        <Grid x:Name="ModalOverlay" Visibility="Collapsed">
+            <Border Background="#330F172A" MouseDown="Dimmer_MouseDown"/>
+            <Border Background="White" CornerRadius="32" Padding="40" MaxWidth="500" MaxHeight="500" 
+                    VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="60" ShadowDepth="20" Opacity="0.1"/>
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <TextBlock x:Name="ModalTitle" FontSize="24" FontWeight="Black" Foreground="#0F172A" Margin="0,0,0,24"/>
+                    
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden">
+                        <ItemsControl x:Name="ModalList">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="#F1F5F9" BorderThickness="0,0,0,1" Padding="0,12">
+                                        <TextBlock Text="{Binding}" FontSize="14" Foreground="#334155"/>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                    
+                    <Button Grid.Row="2" Content="Got it" Margin="0,32,0,0" Background="#0F172A" Foreground="White" 
+                            FontWeight="Bold" FontSize="14" Padding="0,16" BorderThickness="0" Cursor="Hand" Click="CloseModal">
+                        <Button.Resources>
+                            <Style TargetType="Border"><Setter Property="CornerRadius" Value="16"/></Style>
+                        </Button.Resources>
+                    </Button>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

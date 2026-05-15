@@ -1,0 +1,151 @@
+﻿<UserControl x:Class="WinToLin.Views.Steps.Hardware"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:WinToLin.Steps"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="900">
+
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" /> <!-- GPU Panel -->
+            <ColumnDefinition Width="*" /> <!-- Network Panel -->
+            <ColumnDefinition Width="*" /> <!-- Disks Panel -->
+        </Grid.ColumnDefinitions>
+
+        <!-- GPU Panel -->
+        <Border Grid.Column="0" Margin="5" Padding="10" BorderBrush="Black" BorderThickness="1">
+            <StackPanel>
+                <TextBlock FontSize="20" FontWeight="Bold" Text="🎮 GPU" Margin="0 0 0 10" />
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Height="400">
+                    <ItemsControl x:Name="GpuList">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="Black" BorderThickness="1" Padding="8" Margin="3" Width="Auto"
+                                        MinHeight="60">
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="14"
+                                                   TextWrapping="Wrap" />
+                                        <TextBlock Text="{Binding Compatibility}" FontStyle="Italic" FontSize="12"
+                                                   Foreground="Gray" />
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </StackPanel>
+        </Border>
+
+        <!-- Network Adapter Panel -->
+        <Border Grid.Column="1" Margin="5" Padding="10" BorderBrush="Black" BorderThickness="1">
+            <StackPanel>
+                <TextBlock FontSize="20" FontWeight="Bold" Text="🌐 Network Adapters" Margin="0 0 0 10" />
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Height="250">
+                    <ItemsControl x:Name="NetworkList">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="Black" BorderThickness="1" Padding="8" Margin="3" Width="Auto"
+                                        MinHeight="40">
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="14"
+                                                   TextWrapping="Wrap" />
+
+                                        <!-- <TextBlock Text="Compatibility: (to be filled later)" FontStyle="Italic" FontSize="12" Foreground="Gray"/> -->
+
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </StackPanel>
+        </Border>
+
+        <!-- Disks Panel -->
+        <Border Grid.Column="2" Margin="5" Padding="10" BorderBrush="Black" BorderThickness="1">
+            <StackPanel>
+                <TextBlock FontSize="20" FontWeight="Bold" Text="💿 Disks" Margin="0 0 0 10" />
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Height="400">
+                    <ItemsControl x:Name="DisksList">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="Black"
+                                        BorderThickness="1"
+                                        Padding="8"
+                                        Margin="3"
+                                        MinHeight="60">
+
+                                    <Grid Style="{x:Null}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <!-- LEFT SIDE -->
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding Model}"
+                                                       FontWeight="Bold"
+                                                       FontSize="14"
+                                                       TextWrapping="Wrap"/>
+
+                                            <TextBlock Text="{Binding Type}"
+                                                       FontStyle="Italic"
+                                                       FontSize="12"
+                                                       Foreground="Gray"/>
+
+                                            <TextBlock Text="{Binding DriveLetters}" FontSize="12"/>
+                                            <TextBlock Text="{Binding Size}" FontSize="12"/>
+                                        </StackPanel>
+
+                                        <!-- RIGHT SIDE (OS indicator WITHOUT converter) -->
+                                        <TextBlock Grid.Column="1"
+                                                   Margin="10,0,0,0"
+                                                   VerticalAlignment="Top"
+                                                   FontSize="12"
+                                                   FontWeight="Bold"
+                                                   Foreground="Green"
+                                                   Text="OS">
+
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <!-- hidden by default -->
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding OSDrive}" Value="True">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+
+                                        </TextBlock>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </StackPanel>
+        </Border>
+
+    </Grid>
+</UserControl>

@@ -1,0 +1,29 @@
+#cloud-config
+autoinstall:
+  version: 1
+  locale: de_DE.UTF-8
+  timezone: Europe/Berlin
+  keyboard:
+    layout: de
+  late-commands:
+    - mkdir -p /home/filip/dokumente
+    - unzip -o /cdrom/migration/Documents.zip -d /home/filip/dokumente || true
+    - mkdir -p /home/filip/bilder
+    - unzip -o /cdrom/migration/Pictures.zip -d /home/filip/bilder || true
+    - mkdir -p /home/filip/videos
+    - unzip -o /cdrom/migration/Videos.zip -d /home/filip/videos || true
+    - mkdir -p /home/filip/musik
+    - unzip -o /cdrom/migration/Music.zip -d /home/filip/musik || true
+    - mkdir -p /home/filip/schreibtisch
+    - unzip -o /cdrom/migration/Desktop.zip -d /home/filip/schreibtisch || true
+    - mkdir -p /home/filip/downloads
+    - unzip -o /cdrom/migration/Downloads.zip -d /home/filip/downloads || true
+    - mkdir -p /home/filip/.config/code
+    - unzip -o /cdrom/migration/Code.zip -d /home/filip/.config/code || true
+    - mkdir -p /home/filip/.ssh
+    - unzip -o /cdrom/migration/.ssh.zip -d /home/filip/.ssh || true
+    - curtin in-target -- chown -R filip:filip /home/filip/
+  identity:
+    hostname: filip-pc
+    username: filip
+    password: "$6$/EF7HRvmtwgon3sF$HmABj78h61YZL1xkrRqqRZStzqjz/ybnT/yOEuUs1ux6ZRHbLTx3zjEp1ABzsUVzsHFpXg1rwoF/2nZcCHNp1/"

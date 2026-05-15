@@ -10,11 +10,11 @@ none
 false
 TRACE;RELEASE;NET;NET9_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NET9_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
 C:\Users\filip\Documents\Private\Projekte\WinToLin\WinToLin\App.xaml
-10306580758
+10-203722483
 
-2578734027
+41-752906177
 211-85728183
-MainWindow.xaml;Steps\Backup.xaml;Steps\Completion.xaml;Steps\Distro.xaml;Steps\Hardware.xaml;Steps\Migration.xaml;Steps\Software.xaml;Steps\Summary.xaml;Steps\USBSetup.xaml;Steps\Welcome.xaml;
+Views\MainWindow.xaml;Views\OldSteps\Backup.xaml;Views\OldSteps\Completion.xaml;Views\OldSteps\Distro.xaml;Views\OldSteps\Hardware.xaml;Views\OldSteps\Migration.xaml;Views\OldSteps\Software.xaml;Views\OldSteps\Summary.xaml;Views\OldSteps\USBSetup.xaml;Views\SelectMode.xaml;
 
 False
 

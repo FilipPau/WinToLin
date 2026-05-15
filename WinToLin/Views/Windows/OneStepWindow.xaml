@@ -1,0 +1,213 @@
+﻿<Window x:Class="WinToLin.Views.Windows.OneStepWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:conv="clr-namespace:WinToLin.Converters"
+        mc:Ignorable="d"
+        x:Name="RootWindow"
+        d:DesignHeight="480"
+        d:DesignWidth="460"
+        Icon="/Img/icon_small.png"
+        Title="WinToLin" Height="480" Width="460">
+
+    <Window.Resources>
+        <conv:LogoToBackgroundConverter x:Key="LogoToBackgroundConverter" />
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="15,10,15,5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <TextBox Grid.Row="0"
+                     x:Name="SearchBox"
+                     Margin="0,0,0,8"
+                     Padding="6,4"
+                     VerticalContentAlignment="Center"
+                     TextChanged="SearchBox_TextChanged" />
+
+            <ScrollViewer Grid.Row="1" MaxHeight="220" VerticalScrollBarVisibility="Auto"
+                          HorizontalScrollBarVisibility="Disabled">
+                <ItemsControl x:Name="DistroList"
+                              Foreground="#E2E8F0"
+                              ItemsSource="{Binding ElementName=RootWindow, Path=FilteredDistroItems}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="4" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="4" Width="100" Height="95">
+
+                                <Border x:Name="SelectionFrame"
+                                        BorderThickness="2"
+                                        BorderBrush="Transparent"
+                                        CornerRadius="12"
+                                        Margin="-3" />
+
+                                <Border x:Name="CardContent"
+                                        CornerRadius="8"
+                                        Background="{Binding ImagePath, Converter={StaticResource LogoToBackgroundConverter}}"
+                                        MouseLeftButtonUp="CardBorder_MouseLeftButtonUp"
+                                        Cursor="Hand">
+
+                                    <Grid Margin="6,8,6,6">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+
+                                        <Image Grid.Row="0"
+                                               Source="{Binding ImagePath}"
+                                               Width="36" Height="36"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               RenderOptions.BitmapScalingMode="HighQuality" />
+
+                                        <TextBlock Grid.Row="1"
+                                                   Text="{Binding RawName}"
+                                                   Foreground="#E2E8F0"
+                                                   FontSize="11"
+                                                   FontWeight="SemiBold"
+                                                   HorizontalAlignment="Center"
+                                                   TextAlignment="Center"
+                                                   TextWrapping="NoWrap"
+                                                   TextTrimming="CharacterEllipsis"
+                                                   Margin="0,6,0,0" />
+                                    </Grid>
+                                </Border>
+                            </Grid>
+
+                            <DataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                                    <Setter TargetName="SelectionFrame" Property="BorderBrush"
+                                            Value="{Binding ImagePath, Converter={StaticResource LogoToBackgroundConverter}}" />
+                                </DataTrigger>
+                            </DataTemplate.Triggers>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+
+        <Grid Grid.Row="1" Margin="15,5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" 
+                       Text="Choose a USB device to create the bootable Linux installer."
+                       Foreground="#A0A0A0"
+                       Margin="0,0,0,8"
+                       FontSize="12"
+                       TextWrapping="Wrap"/>
+
+            <ListBox Grid.Row="1" 
+                     x:Name="UsbList"
+                     Background="Transparent"
+                     BorderThickness="0"
+                     Foreground="White"
+                     SelectionMode="Single"
+                     ScrollViewer.VerticalScrollBarVisibility="Auto">
+
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Margin" Value="0,3"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <Border x:Name="Bd"
+                                            Background="{StaticResource BackgroundColor}"
+                                            CornerRadius="6"
+                                            Padding="10,8">
+                                        <ContentPresenter/>
+                                    </Border>
+
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="Bd" Property="Background" Value="White"/>
+                                        </Trigger>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter TargetName="Bd" Property="Background" Value="White"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" 
+                                       Text="{Binding Name}"
+                                       Foreground="#E2E8F0"
+                                       FontSize="13"
+                                       FontWeight="SemiBold"
+                                       TextTrimming="CharacterEllipsis"/>
+                            
+                            <TextBlock Grid.Row="1" Grid.Column="0" 
+                                       Text="{Binding Letter}"
+                                       Foreground="#8A94A6"
+                                       FontSize="11"
+                                       Margin="0,2,0,0"/>
+
+                            <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2"
+                                       Text="{Binding Size}"
+                                       Foreground="#CBD5E1"
+                                       FontSize="12"
+                                       VerticalAlignment="Center"
+                                       Margin="10,0,0,0"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <StackPanel Grid.Row="2" Margin="0,4,0,0">
+                <TextBlock x:Name="NoUsbText"
+                           Text="No USB device detected. Please insert one."
+                           Foreground="#94A3B8"
+                           FontSize="12"
+                           Visibility="Collapsed"/>
+
+                <TextBlock x:Name="SelectedUsbText"
+                           Foreground="#4A90E2"
+                           FontSize="12"
+                           FontWeight="Bold"/>
+            </StackPanel>
+        </Grid>
+
+        <Button Grid.Row="2" 
+                x:Name="MigrateButton"
+                Content="Migrate" 
+                MinHeight="38"
+                Margin="50,15" 
+                Padding="0,8" 
+                VerticalContentAlignment="Center"
+                IsEnabled="False" />
+
+    </Grid>
+</Window>
