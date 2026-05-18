@@ -40,6 +40,11 @@
 4. **Prepare** the bootable installation media.
 5. **Install** Linux and let WinToLin **Restore** everything automatically.
 
+## Demo Video
+https://github.com/user-attachments/assets/eaef0d00-9c2e-41cb-abe1-394ea9ccd5f3
+
+
+
 ## Contributing
 
 Contributions are welcome! Help us expand the app compatibility database, improve the UI/UX, or add more supported distributions by opening an issue or pull request.
