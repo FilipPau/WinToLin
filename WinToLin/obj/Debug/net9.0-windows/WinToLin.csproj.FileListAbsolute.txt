@@ -61,3 +61,4 @@ C:\Users\filip\Documents\Private\Projekte\WinToLin\WinToLin\obj\Debug\net9.0-win
 C:\Users\filip\Documents\Private\Projekte\WinToLin\WinToLin\obj\Debug\net9.0-windows\WinToLin.pdb
 C:\Users\filip\Documents\Private\Projekte\WinToLin\WinToLin\obj\Debug\net9.0-windows\WinToLin.genruntimeconfig.cache
 C:\Users\filip\Documents\Private\Projekte\WinToLin\WinToLin\obj\Debug\net9.0-windows\ref\WinToLin.dll
+C:\Users\filip\Documents\Private\Projekte\WinToLin\WinToLin\bin\Debug\net9.0-windows\Data\distros_togo.json
