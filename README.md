@@ -52,4 +52,4 @@ Contributions are welcome! Help us expand the app compatibility database, improv
 
 ## License
 
-This project is open-source and free for everyone under the MIT License.
+This project is open-source and free for everyone under the GPL 2 License.
