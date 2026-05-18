@@ -11,16 +11,6 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-
-        
-        ConfigManager.Instance.SetSystemSettings(
-            SystemSettingsHelper.GetUserProfileName(),
-            SystemSettingsHelper.GetLanguage(),
-            SystemSettingsHelper.GetKeyboardLayout(),
-            SystemSettingsHelper.GetTimeZone(),
-            SystemSettingsHelper.GetCurrentWifiSSID(),
-            SystemSettingsHelper.ExportWifiProfiles()
-            );
         
         var stepManager = StepManager.Instance;
 

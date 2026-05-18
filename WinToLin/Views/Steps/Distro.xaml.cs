@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using WinToLin.logic.manager;
+using WinToLin.Logic.Manager;
 using WinToLin.Steps;
 
 namespace WinToLin.Views.Steps;

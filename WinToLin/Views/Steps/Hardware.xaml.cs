@@ -3,6 +3,7 @@ using System.Management;
 using System.Windows.Controls;
 using SharpGen.Runtime;
 using Vortice.DXGI;
+using WinToLin.Logic.Manager;
 
 namespace WinToLin.Views.Steps;
 

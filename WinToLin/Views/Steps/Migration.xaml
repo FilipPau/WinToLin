@@ -18,23 +18,23 @@
 
                     <!-- STORAGE -->
                     <Border
-                            CornerRadius="8"
-                            Padding="15"
-                            Margin="0,0,0,15">
+                        CornerRadius="8"
+                        Padding="15"
+                        Margin="0,0,0,15">
 
                         <StackPanel>
 
                             <TextBlock Text="Storage Usage"
                                        FontWeight="Bold"
-                                       Margin="0,0,0,10"/>
+                                       Margin="0,0,0,10" />
 
                             <!-- BAR -->
                             <Grid Height="28" Background="#2D3445">
 
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition x:Name="IsoColumn"/>
-                                    <ColumnDefinition x:Name="BackupColumn"/>
-                                    <ColumnDefinition x:Name="FreeColumn"/>
+                                    <ColumnDefinition x:Name="IsoColumn" />
+                                    <ColumnDefinition x:Name="BackupColumn" />
+                                    <ColumnDefinition x:Name="FreeColumn" />
                                 </Grid.ColumnDefinitions>
 
                                 <!-- ISO -->
@@ -43,7 +43,7 @@
                                                Foreground="White"
                                                FontWeight="SemiBold"
                                                HorizontalAlignment="Center"
-                                               VerticalAlignment="Center"/>
+                                               VerticalAlignment="Center" />
                                 </Border>
 
                                 <!-- BACKUP -->
@@ -52,7 +52,7 @@
                                                Foreground="White"
                                                FontWeight="SemiBold"
                                                HorizontalAlignment="Center"
-                                               VerticalAlignment="Center"/>
+                                               VerticalAlignment="Center" />
                                 </Border>
 
                                 <!-- FREE -->
@@ -61,7 +61,7 @@
                                                Foreground="White"
                                                FontWeight="SemiBold"
                                                HorizontalAlignment="Center"
-                                               VerticalAlignment="Center"/>
+                                               VerticalAlignment="Center" />
                                 </Border>
 
                             </Grid>
@@ -70,24 +70,24 @@
                     </Border>
 
                     <!-- STEPS -->
-                    <Border 
-                            CornerRadius="8"
-                            Padding="15"
-                            Margin="0,0,0,15">
+                    <Border
+                        CornerRadius="8"
+                        Padding="15"
+                        Margin="0,0,0,15">
 
                         <StackPanel>
 
                             <TextBlock Text="📦 Migration Steps"
                                        FontWeight="Bold"
                                        Margin="0,0,0,10"
-                                       HorizontalAlignment="Center"/>
+                                       HorizontalAlignment="Center" />
 
                             <ItemsControl x:Name="StepsList">
 
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <StackPanel Orientation="Horizontal"
-                                                    HorizontalAlignment="Center"/>
+                                                    HorizontalAlignment="Center" />
                                     </ItemsPanelTemplate>
                                 </ItemsControl.ItemsPanel>
 
@@ -100,16 +100,16 @@
                                             <Border.Style>
                                                 <Style TargetType="Border">
 
-                                                    <Setter Property="Background" Value="{StaticResource AccentColor5}"/>
+                                                    <Setter Property="Background" Value="{StaticResource AccentColor5}" />
 
                                                     <Style.Triggers>
 
                                                         <DataTrigger Binding="{Binding IsActive}" Value="True">
-                                                            <Setter Property="Background" Value="#4A90E2"/>
+                                                            <Setter Property="Background" Value="#4A90E2" />
                                                         </DataTrigger>
 
                                                         <DataTrigger Binding="{Binding IsDone}" Value="True">
-                                                            <Setter Property="Background" Value="#50C878"/>
+                                                            <Setter Property="Background" Value="#50C878" />
                                                         </DataTrigger>
 
                                                     </Style.Triggers>
@@ -120,7 +120,7 @@
                                             <TextBlock Text="{Binding Name}"
                                                        Foreground="White"
                                                        FontWeight="SemiBold"
-                                                       HorizontalAlignment="Center"/>
+                                                       HorizontalAlignment="Center" />
 
                                         </Border>
                                     </DataTemplate>
@@ -134,19 +134,34 @@
                     <!-- PROGRESS -->
                     <ProgressBar x:Name="MainProgress"
                                  Height="20"
-                                 Margin="0,0,0,5"/>
+                                 Margin="0,0,0,5" />
 
                     <TextBlock x:Name="ProgressText"
                                Foreground="#AAAAAA"
-                               HorizontalAlignment="Center"/>
+                               HorizontalAlignment="Center" />
 
-                    <Button Content="Migrate"
-                            Height="40"
-                            Width="120"
-                            Margin="0,10,0,10"
-                            HorizontalAlignment="Center"
-                            Click="Migrate_Click"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                             <ColumnDefinition/>
+                             <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Button Grid.Column="1" Content="Migrate"
+                                Height="40"
+                                Width="150"
+                                Margin="0,10,0,10"
+                                HorizontalAlignment="Center"
+                                Click="Migrate_Click"/>
 
+                        <Button Grid.Column="0" Content="Create ISO"
+                                               Height="40"
+                                               Width="150"
+                                               Margin="0,10,0,10"
+                                               HorizontalAlignment="Center"
+                                               Click="CreateISO_Click"
+                        />
+
+                    </Grid>
                 </StackPanel>
 
             </Grid>

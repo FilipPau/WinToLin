@@ -1,5 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using WinToLin.Helper;
+using WinToLin.Logic.Manager;
 using WinToLin.Views.Windows;
 
 namespace WinToLin.views;
@@ -16,6 +18,18 @@ public partial class SelectMode : Window
         _oneClickWindow = new OneStepWindow();
         
         InitializeComponent();
+
+        Loaded += (sender, args) =>
+        {
+            ConfigManager.Instance.SetSystemSettings(
+                SystemSettingsHelper.GetUserProfileName(),
+                SystemSettingsHelper.GetLanguage(),
+                SystemSettingsHelper.GetKeyboardLayout(),
+                SystemSettingsHelper.GetTimeZone(),
+                SystemSettingsHelper.GetCurrentWifiSSID(),
+                SystemSettingsHelper.ExportWifiProfiles()
+            );
+        };
     }
 
     private void CustomTransferClicked(object sender, RoutedEventArgs e)

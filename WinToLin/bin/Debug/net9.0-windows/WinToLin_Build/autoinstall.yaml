@@ -6,24 +6,14 @@ autoinstall:
   keyboard:
     layout: de
   late-commands:
-    - mkdir -p /home/filip/dokumente
-    - unzip -o /cdrom/migration/Documents.zip -d /home/filip/dokumente || true
-    - mkdir -p /home/filip/bilder
-    - unzip -o /cdrom/migration/Pictures.zip -d /home/filip/bilder || true
-    - mkdir -p /home/filip/videos
-    - unzip -o /cdrom/migration/Videos.zip -d /home/filip/videos || true
-    - mkdir -p /home/filip/musik
-    - unzip -o /cdrom/migration/Music.zip -d /home/filip/musik || true
-    - mkdir -p /home/filip/schreibtisch
-    - unzip -o /cdrom/migration/Desktop.zip -d /home/filip/schreibtisch || true
-    - mkdir -p /home/filip/downloads
-    - unzip -o /cdrom/migration/Downloads.zip -d /home/filip/downloads || true
-    - mkdir -p /home/filip/.config/code
-    - unzip -o /cdrom/migration/Code.zip -d /home/filip/.config/code || true
-    - mkdir -p /home/filip/.ssh
-    - unzip -o /cdrom/migration/.ssh.zip -d /home/filip/.ssh || true
     - curtin in-target -- chown -R filip:filip /home/filip/
+    - curtin in-target -- mkdir -p /home/filip/.config
+    - curtin in-target -- touch /home/filip/.config/gnome-initial-setup-done
+    - curtin in-target -- chown -R filip:filip /home/filip/.config
+    - curtin in-target -- mkdir -p /etc/skel/.config
+    - curtin in-target -- touch /etc/skel/.config/gnome-initial-setup-done
+    - curtin in-target -- systemctl mask gnome-initial-setup.service
   identity:
     hostname: filip-pc
     username: filip
-    password: "$6$/EF7HRvmtwgon3sF$HmABj78h61YZL1xkrRqqRZStzqjz/ybnT/yOEuUs1ux6ZRHbLTx3zjEp1ABzsUVzsHFpXg1rwoF/2nZcCHNp1/"
+    password: "$6$1/dSyfYRt5GcmZJb$mpv31f/efXP8gY939b90WM0TlLXeSuok3BgztfA0aLcvaH2SJBBTlHJIpDejK6ETw5PqftVjQZji1n6riu9KX0"

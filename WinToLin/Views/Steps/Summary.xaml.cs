@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 using WinToLin.logic.manager;
+using WinToLin.Logic.Manager;
 
 namespace WinToLin.Views.Steps;
 

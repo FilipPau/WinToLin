@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using WinToLin.logic.manager;
+using WinToLin.Logic.Manager;
 
 namespace WinToLin.Views.Steps;
 
@@ -57,7 +58,7 @@ public partial class Migration : UserControl
         try
         {
             string workDir = Path.Combine(Environment.CurrentDirectory, "WinToLin_Build");
-            await migrator.RunPipeline(workDir);
+            await migrator.RunPipeline(workDir, false);
             StepManager.Instance.MainTaskCompleted();
         }
         catch (Exception ex)
@@ -70,6 +71,60 @@ public partial class Migration : UserControl
         }
     }
 
+    private async void CreateISO_Click(object sender, RoutedEventArgs e)
+    {
+        if (isRunning) return;
+
+        // 1. Initialize the modern folder selection dialog
+        Microsoft.Win32.OpenFolderDialog folderDialog = new Microsoft.Win32.OpenFolderDialog
+        {
+            Title = "Select Destination Directory",
+            InitialDirectory = Environment.CurrentDirectory
+        };
+
+        // 2. Show the dialog and check if the user selected a path
+        if (folderDialog.ShowDialog() != true)
+        {
+            // User cancelled the directory picker selection
+            return; 
+        }
+
+        // Save the chosen directory path into a variable
+        string selectedDir = folderDialog.FolderName;
+        isRunning = true;
+
+        var migrator = Migrator.Migrator.Instance;
+
+        // --- Subscribe to Events ---
+        migrator.OnProgressChanged += p => Dispatcher.Invoke((Action)(() => MainProgress.Value = p));
+        migrator.OnStatusChanged += s => Dispatcher.Invoke((Action)(() => ProgressText.Text = s));
+        migrator.OnStepChanged += idx => Dispatcher.Invoke(() => {
+            for (int i = 0; i < steps.Count; i++) {
+                steps[i].IsActive = (i == idx);
+                steps[i].IsDone = (i < idx);
+            }
+            RefreshSteps();
+        });
+
+        try
+        {
+            // Combine with your build folder name
+            string workDir = Path.Combine(Environment.CurrentDirectory, "WinToLin_Build");
+        
+            // 3. Run the pipeline asynchronously, passing the chosen directory
+            await migrator.RunPipeline(workDir, true, selectedDir);
+        
+            StepManager.Instance.MainTaskCompleted();
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Migration Error: {ex.Message}");
+        }
+        finally
+        {
+            isRunning = false;
+        }
+    }
     private void RefreshSteps()
     {
         StepsList.ItemsSource = null;

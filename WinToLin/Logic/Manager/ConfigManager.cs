@@ -1,15 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 using WinToLin.Logic.Enums;
-using WinToLin.Steps;
 
-namespace WinToLin
+namespace WinToLin.Logic.Manager
 {
     public sealed class ConfigManager
     {
         private static readonly Lazy<ConfigManager> _instance = new(() => new ConfigManager());
         public static ConfigManager Instance => _instance.Value;
+
+        /// <summary>
+        /// Set this static variable to the file path where you want the JSON saved.
+        /// If left empty or null, the file saving output logic is completely skipped.
+        /// </summary>
+        public static string OutputFileLocation { get; set; } = null;
 
         private ConfigManager()
         {
@@ -185,6 +193,54 @@ namespace WinToLin
             TimeZone = timeZone ?? string.Empty;
             UsedWlanSSId = wlanSsid ?? string.Empty;
             WifiProfileExportPath = wifiExportPath ?? string.Empty;
+        }
+
+        // =========================
+        // UTILITIES
+        // =========================
+
+        /// <summary>
+        /// Serializes the current config instance into a readable JSON string. 
+        /// Saves to OutputFileLocation file if that path variable is populated.
+        /// </summary>
+        /// <returns>The formatted JSON string data.</returns>
+        public string GetConfigJson()
+        {
+            
+            try
+            {
+                var options = new JsonSerializerOptions
+                {
+                    WriteIndented = true,
+                    Converters = { new JsonStringEnumConverter() }
+                };
+
+                string jsonOutput = JsonSerializer.Serialize(this, options);
+                
+                // Only output and save if the path has been explicitly populated
+                if (!string.IsNullOrWhiteSpace(OutputFileLocation))
+                {
+                    
+                    string directoryPath = Path.GetDirectoryName(OutputFileLocation);
+                    if (!string.IsNullOrWhiteSpace(directoryPath) && !Directory.Exists(directoryPath))
+                    {
+                        Directory.CreateDirectory(directoryPath);
+                    }
+
+                    File.WriteAllText(OutputFileLocation, jsonOutput);
+
+                    Debug.WriteLine("=== Current Config Manager State JSON ===");
+                    Debug.WriteLine($"Saved to file successfully: {OutputFileLocation}");
+                    Debug.WriteLine("=========================================");
+                }
+
+                return jsonOutput;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Failed to generate JSON configuration output: {ex.Message}");
+                return string.Empty;
+            }
         }
     }
 }

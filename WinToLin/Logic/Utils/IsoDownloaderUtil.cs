@@ -35,24 +35,6 @@ public static class IsoDownloader
 
         Directory.CreateDirectory(Path.GetDirectoryName(outputPath)!);
 
-        if (File.Exists(outputPath))
-        {
-            var existingFile = new FileInfo(outputPath);
-
-            
-            // simple validity check (ISO files are large)
-            if (existingFile.Length > 100_000_000)
-            {
-                Console.WriteLine("✔ Using existing ISO: " + outputPath);
-                progress?.Report(100);
-                return outputPath;
-            }
-
-            // too small → likely broken download
-            Console.WriteLine("⚠ Existing file too small, re-downloading...");
-            File.Delete(outputPath);
-        }
-
         using var response = await client.GetAsync(
             distro.DownloadUrl,
             HttpCompletionOption.ResponseHeadersRead

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WinToLin.Logic.Enums;
 using WinToLin.logic.manager;
+using WinToLin.Logic.Manager;
 using WinToLin.Migration;
 using WinToLin.Migrator.BootloaderConfigUpdater;
 using WinToLin.Migrator.InstallScriptCreators;
@@ -48,7 +49,7 @@ public class Migrator
         }
     }
 
-    public async Task RunPipeline(string workDir)
+    public async Task RunPipeline(string workDir, bool onlyCreateIso, string? outputIsoDirPath = null)
     {
         string isoPath = Path.Combine(workDir, "distro.iso");
         string compressedFilesPath = Path.Combine(workDir, "migration_archives");
@@ -66,6 +67,8 @@ public class Migrator
         await Task.WhenAll(new Task[]
         {
             IsoDownloader.DownloadAsync(distroName, isoPath, downloadProgress),
+            
+            //auto detect files and folder to keep automaticaly which means all of them, important mate
             CompressUtil.CompressAndMoveFilesAsync(compressedFilesPath, 
                 _configManager.BackupPaths.Select(x => x.Key).ToList())
         });
@@ -101,13 +104,21 @@ public class Migrator
         OnStatusChanged?.Invoke("Creating Final Bootable ISO...");
         
         var isoInjector = ISOInjectorFactory.CreateISOInjector(distroName);
+
         string outputIso = Path.Combine(workDir, "wintolin.iso");
+        
         string xorrisoPath = "xorriso";
 
         // If Inject supports progress, pass it here; otherwise, manual completion
-        await Task.Run(() => isoInjector.Inject(isoPath, outputIso, xorrisoPath));
+        await Task.Run(() => isoInjector.Inject(isoPath, outputIsoDirPath ?? outputIso, xorrisoPath));
         
         OnProgressChanged?.Invoke(100);
         OnStatusChanged?.Invoke("Migration Ready!");
+        
+        if (onlyCreateIso) 
+            return;
+        
+        //make a bootable usb
+        
     }
 }

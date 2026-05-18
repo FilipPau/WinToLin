@@ -9,6 +9,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using CryptSharp;
+using WinToLin.Logic.Manager;
 
 namespace WinToLin.Migration
 {
