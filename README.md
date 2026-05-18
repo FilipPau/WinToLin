@@ -24,7 +24,8 @@
 * **Distro Support:** Currently optimized for Ubuntu, with plans to expand the distribution selection in future updates.
 * **Backup Strategy:** Automatically backs up and maps primary user directories (Desktop, Downloads, Documents, Pictures, and Videos). The ultimate goal is a comprehensive migration that seamlessly transfers all vital user data.
 * **Media Creation:** Generates a ready-to-use ISO file, which can easily be flashed to a USB drive using tools like BalenaEtcher to create your bootable installer.
-
+* **Requirements :** xorriso installed and setup with a path variable in the system
+ 
 ## Features
 
 * **System Analysis:** Detects installed apps and checks Linux compatibility.
