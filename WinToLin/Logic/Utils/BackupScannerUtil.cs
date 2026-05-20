@@ -9,11 +9,7 @@ using WinToLin.Logic.Manager;
 namespace WinToLin.Logic.Utils
 {
     public static class BackupScannerUtil
-    {
-        // ==========================================
-        // EXTENSIBLE LANGUAGE DICTIONARY
-        // Casing here defines the target casing on Linux!
-        // ==========================================
+    { 
         private static readonly Dictionary<string, Dictionary<string, string>> LanguagePack = new(StringComparer.OrdinalIgnoreCase)
         {
             ["en"] = new() {

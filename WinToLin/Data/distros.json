@@ -6,5 +6,13 @@
     "UseCase": "Best for beginners and general use",
     "DownloadUrl": "https://at.ubuntu.niranjan.co/24.04.4/ubuntu-24.04.4-desktop-amd64.iso",
     "ImagePath": "/Img/distros/ubuntu.png"
+  },
+  {
+    "Name": "Fedora",
+    "Base": "Red Hat",
+    "Description": "Cutting-edge features with strong developer focus.",
+    "UseCase": "Best for developers",
+    "DownloadUrl": "https://www.fedora.is/fedora/releases/44/Workstation/x86_64/iso/Fedora-Workstation-Live-44-1.7.x86_64.iso",
+    "ImagePath": "/Img/distros/fedora.png"
   }
 ]

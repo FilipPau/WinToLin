@@ -10,7 +10,9 @@ using WinToLin.Logic.Manager;
 using WinToLin.Migration;
 using WinToLin.Migrator.BootloaderConfigUpdater;
 using WinToLin.Migrator.InstallScriptCreators;
+using WinToLin.Migrator.ISOBootloaderConfigExtractor;
 using WinToLin.Migrator.ISOInjectors;
+using WinToLin.Migrator.ToolKit;
 
 namespace WinToLin.Migrator;
 
@@ -19,7 +21,6 @@ public class Migrator
     private static Migrator? _instance;
     private static readonly object _lock = new object();
     private ConfigManager _configManager;
-    private Dictionary<Distros, BootLoaders> _distroToBootLoader;
 
     // --- Events for UI Binding ---
     public event Action<double>? OnProgressChanged;
@@ -29,12 +30,6 @@ public class Migrator
     private Migrator()
     {
         _configManager = ConfigManager.Instance;
-        _distroToBootLoader = new Dictionary<Distros, BootLoaders>()
-        {
-            [Distros.UBUNTU] = BootLoaders.GRUB,
-            [Distros.FEDORA] = BootLoaders.GRUB,
-            [Distros.MINT] = BootLoaders.GRUB,
-        };
     }
 
     public static Migrator Instance
@@ -53,72 +48,61 @@ public class Migrator
     {
         string isoPath = Path.Combine(workDir, "distro.iso");
         string compressedFilesPath = Path.Combine(workDir, "migration_archives");
-        var distroName = _configManager.DistroName;
+        var distro = _configManager.DistroName;
+
+        var toolkit = TransferToolKitFactory.CreateTransferToolKit(distro);
 
         Directory.CreateDirectory(workDir);
 
         // STEP 0: Download & Compression
         OnStepChanged?.Invoke(0);
         OnStatusChanged?.Invoke("Downloading ISO and Compressing Files...");
-        
+
         var downloadProgress = new Progress<double>(p => OnProgressChanged?.Invoke(p));
 
         // Use Task.WhenAll for async non-blocking execution
         await Task.WhenAll(new Task[]
         {
-            IsoDownloader.DownloadAsync(distroName, isoPath, downloadProgress),
-            
+            IsoDownloader.DownloadAsync(distro, isoPath, downloadProgress),
+
             //auto detect files and folder to keep automaticaly which means all of them, important mate
-            CompressUtil.CompressAndMoveFilesAsync(compressedFilesPath, 
+            CompressUtil.CompressAndMoveFilesAsync(compressedFilesPath,
                 _configManager.BackupPaths.Select(x => x.Key).ToList())
         });
 
         // STEP 1: Extract Config
         OnStepChanged?.Invoke(1);
         OnStatusChanged?.Invoke("Extracting Bootloader Config...");
-        
-        switch (_distroToBootLoader[distroName])
-        {
-            case BootLoaders.GRUB:
-                var extractProgress = new Progress<double>(p => OnProgressChanged?.Invoke(p));
-                await IsoExtractGrubConfigUtil.ExtractAsync(isoPath, workDir, extractProgress);
-                break;
-            default:
-                throw new NotSupportedException($"Bootloader for {distroName} not supported.");
-        }
+
+        await toolkit.BootLoaderConfigExtractor.ExtractAsync(isoPath);
 
         // STEP 2: Injection Preparation
         OnStepChanged?.Invoke(2);
         OnStatusChanged?.Invoke("Injecting Config & Migration Scripts...");
-        
-        
-        var bootLoaderConfigUpdater = BootLoaderConfigUpdaterFactory.CreateBootLoaderConfigUpdater(_distroToBootLoader[distroName]);
-        bootLoaderConfigUpdater.UpdateAndWriteBootLoaderConfig(workDir);
-        
 
-        var installScsriptWriter = InstallScriptFactory.CreateInstallScriptWriter(distroName);
-        installScsriptWriter.CreateAndWriteMigrationScripts(workDir);
+        toolkit.BootLoaderConfigUpdater.UpdateAndWriteBootLoaderConfig(workDir);
+
+        toolkit.InstallScriptWriter.CreateAndWriteMigrationScripts(workDir);
 
         // STEP 3: USB/ISO Finalization
         OnStepChanged?.Invoke(3);
         OnStatusChanged?.Invoke("Creating Final Bootable ISO...");
         
-        var isoInjector = ISOInjectorFactory.CreateISOInjector(distroName);
-
-        string outputIso = Path.Combine(workDir, "wintolin.iso");
         
+        
+        string outputIso = Path.Combine(workDir, "wintolin.iso");
+
         string xorrisoPath = "xorriso";
 
         // If Inject supports progress, pass it here; otherwise, manual completion
-        await Task.Run(() => isoInjector.Inject(isoPath, outputIsoDirPath ?? outputIso, xorrisoPath));
-        
+        await Task.Run(() => toolkit.IsoInjector.Inject(isoPath, outputIsoDirPath is not null ? Path.Combine(outputIsoDirPath, "wintolin.iso") : outputIso, xorrisoPath));
+
         OnProgressChanged?.Invoke(100);
         OnStatusChanged?.Invoke("Migration Ready!");
-        
-        if (onlyCreateIso) 
+
+        if (onlyCreateIso)
             return;
-        
+
         //make a bootable usb
-        
     }
 }

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WinToLin")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f5782ac2073f507db4c276fffc83e7ae2c1a10ea")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+61fb0233c3fe33e78a459934d266a17b84af3881")]
 [assembly: System.Reflection.AssemblyProductAttribute("WinToLin")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WinToLin")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

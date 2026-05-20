@@ -10,11 +10,11 @@ none
 false
 TRACE;RELEASE;NET;NET9_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NET9_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
 C:\Users\filip\Documents\Private\Projekte\WinToLin\WinToLin\App.xaml
-10-203722483
+11673630670
 
-41-752906177
+451194861934
 211-85728183
-Views\MainWindow.xaml;Views\OldSteps\Backup.xaml;Views\OldSteps\Completion.xaml;Views\OldSteps\Distro.xaml;Views\OldSteps\Hardware.xaml;Views\OldSteps\Migration.xaml;Views\OldSteps\Software.xaml;Views\OldSteps\Summary.xaml;Views\OldSteps\USBSetup.xaml;Views\SelectMode.xaml;
+Views\SelectMode.xaml;Views\Steps\Backup.xaml;Views\Steps\Completion.xaml;Views\Steps\Distro.xaml;Views\Steps\Hardware.xaml;Views\Steps\Migration.xaml;Views\Steps\Software.xaml;Views\Steps\Summary.xaml;Views\Steps\USBSetup.xaml;Views\Windows\MainWindow.xaml;Views\Windows\OneStepWindow.xaml;
 
 False
 

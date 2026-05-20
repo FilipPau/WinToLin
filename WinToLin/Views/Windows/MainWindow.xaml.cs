@@ -34,6 +34,11 @@ public partial class MainWindow : Window
 
         BackButton.Visibility = Visibility.Hidden;
         MainContent.Content = stepManager.FirstStepPanel;
+        
+        Closing += (sender, args) =>
+        {
+            Application.Current.Shutdown();
+        };
     }
 
     private void GoNext_OnClick(object sender, RoutedEventArgs e) => StepManager.Instance.NextStep();

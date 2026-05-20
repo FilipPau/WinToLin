@@ -2,5 +2,5 @@
 
 public interface IInstallScriptWriter
 {
-    public void CreateAndWriteMigrationScripts(string workingDirectory);
+    public Task CreateAndWriteMigrationScripts(string workingDirectory);
 }

@@ -12,23 +12,7 @@
     "Base": "Red Hat",
     "Description": "Cutting-edge features with strong developer focus.",
     "UseCase": "Best for developers",
-    "DownloadUrl": "https://mirror.plusline.net/fedora/linux/releases/43/KDE/x86_64/iso/Fedora-KDE-Desktop-Live-43-1.6.x86_64.iso",
+    "DownloadUrl": "https://www.fedora.is/fedora/releases/44/Workstation/x86_64/iso/Fedora-Workstation-Live-44-1.7.x86_64.iso",
     "ImagePath": "/Img/distros/fedora.png"
-  },
-  {
-    "Name": "Linux Mint",
-    "Base": "Ubuntu",
-    "Description": "Simple, stable, and familiar interface.",
-    "UseCase": "Best Windows alternative",
-    "DownloadUrl": "https://pub.linuxmint.io/stable/22.3/linuxmint-22.3-cinnamon-64bit.iso",
-    "ImagePath": "/Img/distros/mint.png"
-  },
-  {
-    "Name": "Arch Linux",
-    "Base": "Independent",
-    "Description": "Highly customizable minimal Linux system for advanced users.",
-    "UseCase": "Advanced users, DIY Linux setups",
-    "DownloadUrl": "https://fastly.mirror.pkgbuild.com/iso/2026.03.01/archlinux-2026.03.01-x86_64.iso",
-    "ImagePath": "/Img/distros/arch.png"
   }
 ]

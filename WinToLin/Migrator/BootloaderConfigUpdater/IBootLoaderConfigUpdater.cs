@@ -2,5 +2,5 @@
 
 public interface IBootLoaderConfigUpdater
 {
-    public void UpdateAndWriteBootLoaderConfig(string workingDirectory);
+    public Task UpdateAndWriteBootLoaderConfig(string workingDirectory);
 }

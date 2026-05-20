@@ -24,9 +24,6 @@
       <None Update="Data\software_alternatives_db.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="Data\ubuntu_packages.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
       <None Update="Data\distros_togo.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
@@ -87,6 +84,14 @@
       </Resource>
       <None Remove="Img\background\bg_square_hexes.png" />
       <Resource Include="Img\background\bg_square_hexes.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Resource>
+      <None Remove="Data\fedora_packages.json" />
+      <Resource Include="Data\fedora_packages.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <None Remove="Data\ubuntu_packages.json" />
+      <Resource Include="Data\ubuntu_packages.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Resource>
     </ItemGroup>
