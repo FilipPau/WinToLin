@@ -24,7 +24,8 @@
 * **Distro Support:** Currently optimized for Ubuntu, with plans to expand the distribution selection in future updates.
 * **Backup Strategy:** Automatically backs up and maps primary user directories (Desktop, Downloads, Documents, Pictures, and Videos). The ultimate goal is a comprehensive migration that seamlessly transfers all vital user data.
 * **Media Creation:** Generates a ready-to-use ISO file, which can easily be flashed to a USB drive using tools like BalenaEtcher to create your bootable installer.
-
+* **Requirements :** xorriso installed and setup with a path variable in the system
+ 
 ## Features
 
 * **System Analysis:** Detects installed apps and checks Linux compatibility.
@@ -40,10 +41,15 @@
 4. **Prepare** the bootable installation media.
 5. **Install** Linux and let WinToLin **Restore** everything automatically.
 
+## Demo Video
+https://github.com/user-attachments/assets/eaef0d00-9c2e-41cb-abe1-394ea9ccd5f3
+
+
+
 ## Contributing
 
 Contributions are welcome! Help us expand the app compatibility database, improve the UI/UX, or add more supported distributions by opening an issue or pull request.
 
 ## License
 
-This project is open-source and free for everyone under the MIT License.
+This project is open-source and free for everyone under the GPL 2 License.
