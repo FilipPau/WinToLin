@@ -139,4 +139,8 @@
       <PackageReference Include="Vortice.DXGI" Version="3.8.3" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Migrator\DistroDependent\" />
+    </ItemGroup>
+
 </Project>

@@ -12,5 +12,12 @@ public class UbuntuGrubBootLoaderUpdater : IBootLoaderConfigUpdater
     }
 
     private static string GenerateGrubContent() =>
-        "set timeout=0\nset default=0\n\nmenuentry \"WinToLin Automated Install\" {\n    set gfxpayload=keep\n    linux /casper/vmlinuz autoinstall ds=nocloud\\;seedfrom=/cdrom/preseed/ --- quiet splash\n    initrd /casper/initrd\n}";
+        @"set timeout=0
+set default=0
+
+menuentry ""WinToLin Automated Install"" {
+    set gfxpayload=keep
+    linux /casper/vmlinuz autoinstall ds=nocloud\;seedfrom=/cdrom/preseed/ --- quiet splash
+    initrd /casper/initrd
+}";
 }
