@@ -1,18 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using WinToLin.Logic.Enums;
-using WinToLin.logic.manager;
+﻿using System.IO;
 using WinToLin.Logic.Manager;
 using WinToLin.Migration;
-using WinToLin.Migrator.BootloaderConfigUpdater;
-using WinToLin.Migrator.InstallScriptCreators;
-using WinToLin.Migrator.ISOBootloaderConfigExtractor;
-using WinToLin.Migrator.ISOInjectors;
-using WinToLin.Migrator.ToolKit;
+using WinToLin.Migrator.DistroDependent.ToolKit;
+
 
 namespace WinToLin.Migrator;
 
@@ -74,28 +64,24 @@ public class Migrator
         OnStepChanged?.Invoke(1);
         OnStatusChanged?.Invoke("Extracting Bootloader Config...");
 
-        await toolkit.BootLoaderConfigExtractor.ExtractAsync(isoPath);
+        await toolkit.PreparationStep.PrepareAsync(isoPath);
 
         // STEP 2: Injection Preparation
         OnStepChanged?.Invoke(2);
         OnStatusChanged?.Invoke("Injecting Config & Migration Scripts...");
 
-        toolkit.BootLoaderConfigUpdater.UpdateAndWriteBootLoaderConfig(workDir);
-
-        toolkit.InstallScriptWriter.CreateAndWriteMigrationScripts(workDir);
+        await toolkit.ModificationStep.ModifyAsync(workDir);
 
         // STEP 3: USB/ISO Finalization
         OnStepChanged?.Invoke(3);
         OnStatusChanged?.Invoke("Creating Final Bootable ISO...");
-        
-        
-        
+
         string outputIso = Path.Combine(workDir, "wintolin.iso");
 
         string xorrisoPath = "xorriso";
 
-        // If Inject supports progress, pass it here; otherwise, manual completion
-        await Task.Run(() => toolkit.IsoInjector.Inject(isoPath, outputIsoDirPath is not null ? Path.Combine(outputIsoDirPath, "wintolin.iso") : outputIso, xorrisoPath));
+        await toolkit.BuildStep.BuildAsync(isoPath,
+            outputIsoDirPath is not null ? Path.Combine(outputIsoDirPath, "wintolin.iso") : outputIso, xorrisoPath);
 
         OnProgressChanged?.Invoke(100);
         OnStatusChanged?.Invoke("Migration Ready!");

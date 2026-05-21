@@ -2,15 +2,15 @@
 using System.IO;
 using System.Text;
 
-namespace WinToLin.Migrator.ISOInjectors;
+namespace WinToLin.Migrator.DistroDependent.Build.Distros;
 
-public class UbuntuISOInjector : IISOInjector
+public class UbuntuBuildStep : IBuildStep
 {
-    public async void Inject(string inputISO, string outputISO, string xorriso)
+    public async Task BuildAsync(string inputISO, string outputIso, string xorrisoPath)
     {
-              // Always leave the paths as is, xorriso needs them to be so, pls
+         // Always leave the paths as is, xorriso needs them to be so, pls
             StringBuilder xorArgs = new StringBuilder();
-            xorArgs.Append($"-indev \"{inputISO}\" -outdev \"{outputISO}\" ");
+            xorArgs.Append($"-indev \"{inputISO}\" -outdev \"{outputIso}\" ");
 
             // Mapping files
             xorArgs.Append(
@@ -40,7 +40,7 @@ public class UbuntuISOInjector : IISOInjector
 
             var psi = new ProcessStartInfo
             {
-                FileName = xorriso,
+                FileName = xorrisoPath,
                 Arguments = xorArgs.ToString(),
                 UseShellExecute = false,
                 CreateNoWindow = true,

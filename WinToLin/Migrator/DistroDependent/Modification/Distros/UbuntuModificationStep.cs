@@ -3,21 +3,32 @@ using System.IO;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Xml;
 using CryptSharp;
 using WinToLin.Logic.Manager;
 
-namespace WinToLin.Migrator.InstallScriptCreators;
+namespace WinToLin.Migrator.DistroDependent.Modification.Distros;
 
-public class UbuntuInstallScriptCreator : IInstallScriptWriter
+public class UbuntuModificationStep : IModificationStep
 {
-    public async Task CreateAndWriteMigrationScripts(string workingDirectory)
+    public Task ModifyAsync(string workDir)
+    {
+        return Task.WhenAll(ModifyBootLoader(workDir), CreateInstallScript(workDir));
+    }
+
+    private async Task ModifyBootLoader(string workDir)
+    {
+        string grubPath = Path.Combine(workDir, "grub.cfg");
+
+        await File.WriteAllTextAsync(grubPath, GenerateGrubContent());
+    }
+
+    private async Task CreateInstallScript(string workDir)
     {
         var migrationPaths = ConfigManager.Instance.BackupPaths;
 
-        string yamlPath = Path.Combine(workingDirectory, "autoinstall.yaml");
-        string metaData = Path.Combine(workingDirectory, "meta-data");
-        string userData = Path.Combine(workingDirectory, "user-data");
+        string yamlPath = Path.Combine(workDir, "autoinstall.yaml");
+        string metaData = Path.Combine(workDir, "meta-data");
+        string userData = Path.Combine(workDir, "user-data");
 
         string autoinstallContent = GenerateYamlContent(migrationPaths);
         await File.WriteAllTextAsync(yamlPath, autoinstallContent);
@@ -25,6 +36,7 @@ public class UbuntuInstallScriptCreator : IInstallScriptWriter
         await File.WriteAllTextAsync(userData, autoinstallContent);
     }
 
+    #region Install Script
 
     private static string GenerateYamlContent(Dictionary<string, string> migrationPaths)
     {
@@ -190,4 +202,22 @@ public class UbuntuInstallScriptCreator : IInstallScriptWriter
         [JsonPropertyName("name")] public string Name { get; set; }
         public bool Classic { get; set; } = false;
     }
+
+    #endregion
+    
+    
+    #region Boot Loader
+
+    private static string GenerateGrubContent() =>
+        @"set timeout=0
+set default=0
+
+menuentry ""WinToLin Automated Install"" {
+    set gfxpayload=keep
+    linux /casper/vmlinuz autoinstall ds=nocloud\;seedfrom=/cdrom/preseed/ --- quiet splash
+    initrd /casper/initrd
+}";
+
+    #endregion
+
 }
