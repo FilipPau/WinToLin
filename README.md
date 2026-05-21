@@ -50,15 +50,34 @@
     </tr>
     <tr>
       <td>Other Distros</td>
-      <td>Will come</td>
+      <td colspan=4>Will come</td>
     </tr>
   </tbody>
 </table>
 
-- ✅ => Fully Working
-- 🟡 => Partialy Working
-- ❌ => Not Implemented
 
+<table aling="center">
+  <thead>
+    <tr>
+      <td>Icon</td>
+      <td>Meaning</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>✅</td>
+      <td>Fully Working</td>
+    </tr>
+      <tr>
+      <td>🟡</td>
+      <td>Partialy Working</td>
+    </tr>
+      <tr>
+      <td>❌</td>
+      <td>Not Implemented</td>
+    </tr>
+  </tbody>
+</table>
 
 * **Distro Support:** Currently optimized for Ubuntu, with plans to expand the distribution selection in future updates.
 * **Backup Strategy:** Automatically backs up and maps primary user directories (Desktop, Downloads, Documents, Pictures, and Videos). The ultimate goal is a comprehensive migration that seamlessly transfers all vital user data.
