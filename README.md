@@ -56,7 +56,7 @@
 </table>
 
 
-<table aling="center">
+<table align="center">
   <thead>
     <tr>
       <td>Icon</td>
