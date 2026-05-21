@@ -21,6 +21,32 @@
 
 ## Current State
 
+
+<h3 align="center">Currently supported distros to migrate to</h3>
+<table align="center">
+  <thead>
+    <tr>
+      <th>Distro</th>
+      <th>Support</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Ubuntu</td>
+      <td>Early Implementation</td>
+    </tr>
+    <tr>
+      <td>Fedora</td>
+      <td>In development</td>
+    </tr>
+    <tr>
+      <td>Other Distros</td>
+      <td>Will come</td>
+    </tr>
+  </tbody>
+</table>
+
+
 * **Distro Support:** Currently optimized for Ubuntu, with plans to expand the distribution selection in future updates.
 * **Backup Strategy:** Automatically backs up and maps primary user directories (Desktop, Downloads, Documents, Pictures, and Videos). The ultimate goal is a comprehensive migration that seamlessly transfers all vital user data.
 * **Media Creation:** Generates a ready-to-use ISO file, which can easily be flashed to a USB drive using tools like BalenaEtcher to create your bootable installer.
