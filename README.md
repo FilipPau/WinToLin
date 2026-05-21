@@ -27,17 +27,26 @@
   <thead>
     <tr>
       <th>Distro</th>
-      <th>Support</th>
+      <th>File Transfer</th>
+      <th>File Mapping</th>
+      <th>App Transfer</th>
+      <th>App Config Transfer</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>Ubuntu</td>
-      <td>Early Implementation</td>
+      <td>✅ (Since 23.04.2026)</td>
+      <td>🟡 (Since 23.04.2026)</td>
+      <td>🟡 (Since 23.04.2026)</td>
+      <td>❌</td>
     </tr>
     <tr>
       <td>Fedora</td>
-      <td>In development</td>
+      <td>✅ (Since 21.05.2026)</td>
+      <td>❌</td>
+      <td>❌</td>
+      <td>❌</td>
     </tr>
     <tr>
       <td>Other Distros</td>
@@ -45,6 +54,10 @@
     </tr>
   </tbody>
 </table>
+
+- ✅ => Fully Working
+- 🟡 => Partialy Working
+- ❌ => Not Implemented
 
 
 * **Distro Support:** Currently optimized for Ubuntu, with plans to expand the distribution selection in future updates.
