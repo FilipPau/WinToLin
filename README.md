@@ -70,7 +70,7 @@
     </tr>
       <tr>
       <td>🟡</td>
-      <td>Partialy Working</td>
+      <td>Partialy Implemented (for example the app list needs to be expanded)</td>
     </tr>
       <tr>
       <td>❌</td>
