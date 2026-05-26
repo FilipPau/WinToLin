@@ -45,7 +45,7 @@
       <td>Fedora</td>
       <td>✅ (Since 21.05.2026)</td>
       <td>❌</td>
-      <td>❌</td>
+      <td>🟡 (Since 26.5.2026)</td>
       <td>❌</td>
     </tr>
     <tr>
