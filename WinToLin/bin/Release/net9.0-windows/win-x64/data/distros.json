@@ -12,7 +12,7 @@
     "Base": "Red Hat",
     "Description": "Cutting-edge features with strong developer focus.",
     "UseCase": "Best for developers",
-    "DownloadUrl": "https://www.fedora.is/fedora/releases/44/Workstation/x86_64/iso/Fedora-Workstation-Live-44-1.7.x86_64.iso",
+    "DownloadUrl": "https://fedora.ip-connect.info/linux/releases/44/Everything/x86_64/iso/Fedora-Everything-netinst-x86_64-44-1.7.iso",
     "ImagePath": "/Img/distros/fedora.png"
   }
 ]

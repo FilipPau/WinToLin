@@ -1,6 +1,5 @@
 C:\Users\filip\Documents\Private\Projekte\WinToLin\WinToLin\bin\Release\net9.0-windows\win-x64\WinToLin.exe
 C:\Users\filip\Documents\Private\Projekte\WinToLin\WinToLin\bin\Release\net9.0-windows\win-x64\data\distros.json
-C:\Users\filip\Documents\Private\Projekte\WinToLin\WinToLin\bin\Release\net9.0-windows\win-x64\data\software_alternatives_db.json
 C:\Users\filip\Documents\Private\Projekte\WinToLin\WinToLin\bin\Release\net9.0-windows\win-x64\WinToLin.deps.json
 C:\Users\filip\Documents\Private\Projekte\WinToLin\WinToLin\bin\Release\net9.0-windows\win-x64\WinToLin.runtimeconfig.json
 C:\Users\filip\Documents\Private\Projekte\WinToLin\WinToLin\bin\Release\net9.0-windows\win-x64\WinToLin.dll
@@ -446,3 +445,5 @@ C:\Users\filip\Documents\Private\Projekte\WinToLin\WinToLin\obj\Release\net9.0-w
 C:\Users\filip\Documents\Private\Projekte\WinToLin\WinToLin\obj\Release\net9.0-windows\win-x64\Views\Steps\Software.baml
 C:\Users\filip\Documents\Private\Projekte\WinToLin\WinToLin\obj\Release\net9.0-windows\win-x64\Views\Windows\MainWindow.baml
 C:\Users\filip\Documents\Private\Projekte\WinToLin\WinToLin\obj\Release\net9.0-windows\win-x64\Views\Windows\OneStepWindow.baml
+C:\Users\filip\Documents\Private\Projekte\WinToLin\WinToLin\bin\Release\net9.0-windows\win-x64\Data\Packages\Universal\flatpak_alternatives.json
+C:\Users\filip\Documents\Private\Projekte\WinToLin\WinToLin\bin\Release\net9.0-windows\win-x64\Data\Packages\Universal\flatpak.json

@@ -18,14 +18,14 @@
       <None Update="data\ubuntu_packages.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="Data\distros.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-      <None Update="Data\software_alternatives_db.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
       <None Update="Data\distros_togo.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Data\Packages\Universal\flatpak.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Data\Packages\Universal\flatpak_alternatives.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
     </ItemGroup>
 
@@ -87,13 +87,8 @@
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Resource>
       <None Remove="Data\fedora_packages.json" />
-      <Resource Include="Data\fedora_packages.json">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Resource>
       <None Remove="Data\ubuntu_packages.json" />
-      <Resource Include="Data\ubuntu_packages.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Resource>
+      <None Remove="Data\Packages\Distros\ubuntu.json" />
     </ItemGroup>
 
     <ItemGroup>

@@ -21,11 +21,11 @@ namespace WinToLin.Logic.Manager
 
         private ConfigManager()
         {
-            GPUNames = new List<string>();
-            NICNames = new List<string>();
-            Drives = new List<string>();
-            SoftwareNames = new List<string>();
-            BackupPaths = new ();
+            GPUNames = new();
+            NICNames = new();
+            Drives = new();
+            SoftwareNames = new();
+            BackupPaths = new();
 
             InstalationUSBLetter = string.Empty;
             InstallationUSBDeviceId = string.Empty;
@@ -95,24 +95,18 @@ namespace WinToLin.Logic.Manager
         // =========================
 
         [JsonPropertyName("softwareToInstall")]
-        public List<string> SoftwareNames { get; }
+        public List<(string name, string packageName)> SoftwareNames { get; }
 
-        public void AddSoftware(string softwareName)
+        public void AddSoftware((string name, string packageName) softwareName)
         {
-            if (!string.IsNullOrWhiteSpace(softwareName))
-                SoftwareNames.Add(softwareName);
+            SoftwareNames.Add(softwareName);
         }
 
-        public void RemoveSoftware(string softwareName)
+        public void RemoveSoftware((string name, string packageName) software)
         {
-            SoftwareNames.Remove(softwareName);
+            SoftwareNames.Remove(software);
         }
 
-        public void AddSoftwareList(IEnumerable<string> softwareList)
-        {
-            if (softwareList != null)
-                SoftwareNames.AddRange(softwareList);
-        }
 
         // =========================
         // Backup
@@ -206,7 +200,6 @@ namespace WinToLin.Logic.Manager
         /// <returns>The formatted JSON string data.</returns>
         public string GetConfigJson()
         {
-            
             try
             {
                 var options = new JsonSerializerOptions
@@ -216,11 +209,10 @@ namespace WinToLin.Logic.Manager
                 };
 
                 string jsonOutput = JsonSerializer.Serialize(this, options);
-                
+
                 // Only output and save if the path has been explicitly populated
                 if (!string.IsNullOrWhiteSpace(OutputFileLocation))
                 {
-                    
                     string directoryPath = Path.GetDirectoryName(OutputFileLocation);
                     if (!string.IsNullOrWhiteSpace(directoryPath) && !Directory.Exists(directoryPath))
                     {

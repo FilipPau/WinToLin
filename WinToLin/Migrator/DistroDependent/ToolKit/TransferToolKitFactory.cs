@@ -25,6 +25,11 @@ public static class TransferToolKitFactory
                 new UbuntuModificationStep(),
                 new UbuntuBuildStep()
             ),
+            [Distros.FEDORA] = () => new ToolKit(
+                new FedoraPreparationStep(),
+                new FedoraModificationStep(),
+                new FedoraBuildStep()
+            ),
         };
 
     public static ToolKit CreateTransferToolKit(Distros distro)

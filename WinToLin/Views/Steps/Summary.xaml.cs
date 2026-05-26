@@ -35,7 +35,7 @@ public partial class Summary : UserControl
             NoAppsText.Visibility = Visibility.Collapsed;
             SoftwarePreview.Visibility = Visibility.Visible;
             SoftwareViewBtn.Visibility = Visibility.Visible;
-            SoftwarePreview.ItemsSource = _configManager.SoftwareNames.Take(8).ToList();
+            SoftwarePreview.ItemsSource = _configManager.SoftwareNames.Select(x => x.name).Take(8).ToList();
         }
         else
         {
@@ -63,7 +63,7 @@ public partial class Summary : UserControl
     private void ShowSoftwareModal(object sender, RoutedEventArgs e)
     {
         ModalTitle.Text = "Apps to Install";
-        ModalList.ItemsSource = _configManager.SoftwareNames;
+        ModalList.ItemsSource = _configManager.SoftwareNames.Select(x => x.name).ToList();
         ModalOverlay.Visibility = Visibility.Visible;
     }
 

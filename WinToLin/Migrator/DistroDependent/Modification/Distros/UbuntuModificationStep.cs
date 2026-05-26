@@ -1,8 +1,9 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 using CryptSharp;
 using WinToLin.Logic.Manager;
 
@@ -41,38 +42,35 @@ public class UbuntuModificationStep : IModificationStep
     private static string GenerateYamlContent(Dictionary<string, string> migrationPaths)
     {
         var manager = ConfigManager.Instance;
-        var appData = GetAppBuckets();
 
         var aptPackages = new List<string>();
-        var snapLines = new List<string>();
+        var flatpakPackages = new List<string>();
 
-        // 1. Process selected apps into Buckets
+        // 1. Process selected apps into Packages
         foreach (var rawName in manager.SoftwareNames.Distinct())
         {
-            string name = rawName.ToLower().Trim();
+            // Extract from tracking tuple structure
+            string name = rawName.packageName;
 
-            if (appData.Alternatives.TryGetValue(name, out string alternative))
-                name = alternative;
-
-            if (appData.NativeApt.Any(x => x.Equals(name, StringComparison.OrdinalIgnoreCase)))
+            // Determine if package target matches flatpak ID syntax or remains native system map
+            if (name.Contains(".") && (name.StartsWith("org.") || name.StartsWith("com.") || name.StartsWith("io.") || name.StartsWith("net.")))
             {
-                aptPackages.Add(name);
+                flatpakPackages.Add(name);
             }
             else
             {
-                var snap = appData.SnapPackages.FirstOrDefault(x =>
-                    x.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
-                if (snap != null)
-                {
-                    string line = $"- name: {snap.Name}";
-                    if (snap.Name == "code" || snap.Name.Contains("studio") || snap.Name.Contains("idea"))
-                        line += "\n      classic: true";
-                    snapLines.Add(line);
-                }
+                // Everything else defaults directly to apt package engine
+                aptPackages.Add(name);
             }
         }
 
-        // 2. Generate Migration Commands
+        // If Flatpaks are requested, make sure the system installs flatpak package container support natively
+        if (flatpakPackages.Count > 0 && !aptPackages.Any(x => x.Equals("flatpak", StringComparison.OrdinalIgnoreCase)))
+        {
+            aptPackages.Add("flatpak");
+        }
+
+        // 2. Generate Migration & Flatpak Post-Install Commands
         StringBuilder migrationCmds = new StringBuilder();
         migrationCmds.AppendLine("  late-commands:");
 
@@ -92,6 +90,16 @@ public class UbuntuModificationStep : IModificationStep
 
                 migrationCmds.AppendLine($"    - mkdir -p {targetPath}");
                 migrationCmds.AppendLine($"    - unzip -o /cdrom/migration/{safeName}.zip -d {targetPath} || true");
+            }
+        }
+
+        // Run Flatpak installs via chroot context on target inside the deployment sequence loop environment
+        if (flatpakPackages.Count > 0)
+        {
+            migrationCmds.AppendLine("    - curtin in-target -- flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo");
+            foreach (var flatpakId in flatpakPackages.Distinct())
+            {
+                migrationCmds.AppendLine($"    - curtin in-target -- flatpak install -y flathub {flatpakId} || true");
             }
         }
 
@@ -115,7 +123,6 @@ public class UbuntuModificationStep : IModificationStep
 
         #endregion
 
-
         // 3. Assemble YAML
         StringBuilder yaml = new StringBuilder();
         yaml.AppendLine("#cloud-config");
@@ -133,13 +140,6 @@ public class UbuntuModificationStep : IModificationStep
                 yaml.AppendLine($"    - {pkg}");
         }
 
-        if (snapLines.Count > 0)
-        {
-            yaml.AppendLine("  snaps:");
-            foreach (var line in snapLines.Distinct()) // Added Distinct to prevent double entries
-                yaml.AppendLine($"    {line}");
-        }
-
         yaml.Append(migrationCmds.ToString());
 
         yaml.AppendLine("  identity:");
@@ -150,61 +150,13 @@ public class UbuntuModificationStep : IModificationStep
         return yaml.ToString();
     }
 
-
-    private static AppData GetAppBuckets()
-    {
-        string jsonPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", "ubuntu_packages.json");
-        if (!File.Exists(jsonPath)) return new AppData();
-
-        try
-        {
-            string jsonString = File.ReadAllText(jsonPath);
-            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-            var root = JsonSerializer.Deserialize<AppRoot>(jsonString, options);
-            return root?.Buckets ?? new AppData();
-        }
-        catch (Exception ex)
-        {
-            Debug.WriteLine($"Error reading JSON: {ex.Message}");
-            return new AppData();
-        }
-    }
-
     private static string GetSafeFilename(string filename)
     {
         foreach (char c in Path.GetInvalidFileNameChars()) filename = filename.Replace(c, '_');
         return filename.Replace(" ", "_");
     }
 
-
-    private class AppRoot
-    {
-        [JsonPropertyName("ubuntu_migration_buckets")]
-        public AppData Buckets { get; set; }
-    }
-
-    private class AppData
-    {
-        [JsonPropertyName("native_apt")] public List<string> NativeApt { get; set; } = new List<string>();
-        [JsonPropertyName("snap_packages")] public List<SnapInfo> SnapPackages { get; set; } = new List<SnapInfo>();
-
-        public Dictionary<string, string> Alternatives { get; set; } =
-            new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
-            {
-                { "photoshop", "gimp" }, { "winrar", "7zip" }, { "office", "libreoffice" },
-                { "google chrome", "firefox" }, { "google", "firefox" }, { "chrome", "firefox" },
-                { "utorrent", "qbittorrent" }
-            };
-    }
-
-    private class SnapInfo
-    {
-        [JsonPropertyName("name")] public string Name { get; set; }
-        public bool Classic { get; set; } = false;
-    }
-
     #endregion
-    
     
     #region Boot Loader
 
@@ -219,5 +171,4 @@ menuentry ""WinToLin Automated Install"" {
 }";
 
     #endregion
-
 }

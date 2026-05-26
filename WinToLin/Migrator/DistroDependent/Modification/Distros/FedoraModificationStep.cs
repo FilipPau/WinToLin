@@ -1,6 +1,10 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using WinToLin.Logic.Manager;
 
 namespace WinToLin.Migrator.DistroDependent.Modification.Distros;
@@ -16,7 +20,7 @@ public class FedoraModificationStep : IModificationStep
     {
         string grubPath = Path.Combine(workDir, "grub.cfg");
 
-        await File.WriteAllTextAsync(grubPath, UpdateBootLoader(grubPath));
+        await UpdateBootLoader(grubPath);
     }
 
     private async Task CreateInstallScript(string workDir)
@@ -33,6 +37,25 @@ public class FedoraModificationStep : IModificationStep
     private static string GenerateScript(Dictionary<string, string> migrationPaths)
     {
         var manager = ConfigManager.Instance;
+
+        var dnfPackages = new List<string>();
+        var flatpakPackages = new List<string>();
+
+        // Process selected apps into Packages
+        foreach (var rawName in manager.SoftwareNames.Distinct())
+        {
+            string name = rawName.packageName;
+
+            // Determine if package target matches flatpak ID syntax or remains native system map
+            if (name.Contains(".") && (name.StartsWith("org.") || name.StartsWith("com.") || name.StartsWith("io.") || name.StartsWith("net.")))
+            {
+                flatpakPackages.Add(name);
+            }
+            else
+            {
+                dnfPackages.Add(name);
+            }
+        }
 
         StringBuilder ks = new StringBuilder();
 
@@ -53,7 +76,7 @@ public class FedoraModificationStep : IModificationStep
 
         ks.AppendLine("### USERS");
         ks.AppendLine($"rootpw --plaintext {manager.UserName}pass");
-        ks.AppendLine($"user --name={manager.UserName} --password={manager.UserName}pass --groups=wheel --plaintext");
+        ks.AppendLine($"user --name={manager.UserName} --password=test --groups=wheel --plaintext");
         ks.AppendLine();
 
         ks.AppendLine("### DISK (AUTO WIPE - IMPORTANT)");
@@ -83,6 +106,19 @@ public class FedoraModificationStep : IModificationStep
         ks.AppendLine("wget");
         ks.AppendLine("htop");
         ks.AppendLine("unzip");
+
+        // Add custom requested DNF native apps
+        foreach (var pkg in dnfPackages.Distinct())
+        {
+            ks.AppendLine(pkg);
+        }
+
+        // CRITICAL: Ensure native flatpak application support tool is loaded early in package list
+        if (flatpakPackages.Count > 0 && !dnfPackages.Any(x => x.Equals("flatpak", StringComparison.OrdinalIgnoreCase)))
+        {
+            ks.AppendLine("flatpak");
+        }
+
         ks.AppendLine("%end");
         ks.AppendLine();
 
@@ -136,6 +172,22 @@ public class FedoraModificationStep : IModificationStep
         ks.AppendLine("systemctl enable sshd");
         ks.AppendLine("systemctl set-default graphical.target");
         ks.AppendLine();
+    
+        // Safe operational verification loop for Flatpak execution within the chroot container context
+        if (flatpakPackages.Count > 0)
+        {
+            ks.AppendLine("echo \"=== CONFIGURING FLATPAK PACKAGES ===\"");
+            ks.AppendLine("if ! command -v flatpak &> /dev/null; then");
+            ks.AppendLine("    dnf install -y flatpak");
+            ks.AppendLine("fi");
+            ks.AppendLine("flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo");
+            
+            foreach (var flatpakId in flatpakPackages.Distinct())
+            {
+                ks.AppendLine($"flatpak install -y flathub {flatpakId} || true");
+            }
+            ks.AppendLine();
+        }
 
         ks.AppendLine($"DESKTOP=\"/home/{manager.UserName}/Desktop\"");
         ks.AppendLine("STAGING=\"/opt\"");
@@ -161,46 +213,65 @@ public class FedoraModificationStep : IModificationStep
 
     #region BootLoader
 
-    private string UpdateBootLoader(string grubPath)
+    
+    private async Task UpdateBootLoader(string grubPath)
     {
-        // Read all lines into memory so we can modify and rewrite the file safely
-        string[] lines = File.ReadAllLines(grubPath);
-        bool updatedFirstOccurrence = false;
+        string[] lines = await File.ReadAllLinesAsync(grubPath);
+
+        bool updated = false;
 
         for (int i = 0; i < lines.Length; i++)
         {
             string line = lines[i];
 
-            // Only modify the very first occurrence of this target line
-            if (!updatedFirstOccurrence && line.Contains("linux /images/pxeboot/vmlinuz"))
+            if (line.Contains("set timeout"))
             {
-                // Match 'LABEL=' followed by non-whitespace characters
-                Match match = Regex.Match(line, @"LABEL=([^\s]+)");
+                lines[i] = "set timeout=0";
+            }
+            
+            if (line.Contains("set default"))
+            {
+                lines[i] = "set default=\"0\"";
+            }
+            
+            // Only first matching linux boot line
+            if (!updated && line.Contains("linux") && line.Contains("LABEL="))
+            {
+                // Extract LABEL value safely
+                Match match = Regex.Match(line, @"LABEL=([^\s:]+)");
 
                 if (match.Success)
                 {
-                    // Dynamically extract the label name found on this line
                     string labelName = match.Groups[1].Value;
 
-                    // Construct the exact insertion string based on the extracted label
-                    string insertString = $"inst.ks=hd:LABEL={labelName}:/ks.cfg ";
+                    // Skip if inst.ks already exists
+                    if (line.Contains("inst.ks="))
+                        continue;
 
-                    // Find the position of "quiet" to insert our new argument right before it
-                    int quietIndex = line.IndexOf("quiet");
-                    if (quietIndex != -1)
+                    string ksParam = $" inst.ks=hd:LABEL={labelName}:/ks.cfg";
+
+                    // Insert before "quiet" if present
+                    int quietIndex = line.IndexOf(" quiet");
+
+                    if (quietIndex >= 0)
                     {
-                        lines[i] = line.Insert(quietIndex, insertString);
-                        updatedFirstOccurrence = true; // Prevents modifying subsequent lines
+                        line = line.Insert(quietIndex, ksParam);
                     }
+                    else
+                    {
+                        // Otherwise append at end
+                        line += ksParam;
+                    }
+
+                    lines[i] = line;
+
+                    updated = true;
                 }
             }
         }
 
-        // Write the complete, updated text back to the GRUB file
-        File.WriteAllLines(grubPath, lines, Encoding.UTF8);
-
-        return grubPath;
+        // Overwrite original file
+       await File.WriteAllLinesAsync(grubPath, lines, Encoding.UTF8);
     }
-
     #endregion
 }

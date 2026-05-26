@@ -17,7 +17,8 @@ using System.Windows.Interop; // Added for HwndSource
 using Microsoft.Win32;
 using WinToLin.logic.manager;
 using WinToLin.Logic.Manager;
-using WinToLin.Logic.Utils; // Ensure your ConfigManager namespace is accessible
+using WinToLin.Logic.Utils;
+using WinToLin.Migrator.DistroIndependent; // Ensure your ConfigManager namespace is accessible
 using WinToLin.Steps;
 using WinToLin.Views.Steps;
 
@@ -159,10 +160,9 @@ public partial class OneStepWindow : Window, INotifyPropertyChanged
         {
             var progress = new Progress<Software.SoftwareInfo>(software =>
             {
-                if (software.HasLinuxNative || software.HasLinuxAlternative)
-                {
-                    _configManager.AddSoftware(software.Name);
-                }
+                // Updated to support the new tuple tracking configuration interface schema
+                string targetPackage = !string.IsNullOrEmpty(software.FlatpakId) ? software.FlatpakId : software.Name;
+                _configManager.AddSoftware((software.Name, targetPackage));
             });
 
             await Task.Run(() => SoftwareScannerUtil.PerformBackgroundScan(progress, hideRandomWinStuff: false));

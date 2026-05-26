@@ -1,7 +1,4 @@
 C:\Users\filip\Documents\Private\Projekte\WinToLin\WinToLin\bin\Debug\net9.0-windows\WinToLin.exe
-C:\Users\filip\Documents\Private\Projekte\WinToLin\WinToLin\bin\Debug\net9.0-windows\Data\distros.json
-C:\Users\filip\Documents\Private\Projekte\WinToLin\WinToLin\bin\Debug\net9.0-windows\Data\software_alternatives_db.json
-C:\Users\filip\Documents\Private\Projekte\WinToLin\WinToLin\bin\Debug\net9.0-windows\Data\ubuntu_packages.json
 C:\Users\filip\Documents\Private\Projekte\WinToLin\WinToLin\bin\Debug\net9.0-windows\WinToLin.deps.json
 C:\Users\filip\Documents\Private\Projekte\WinToLin\WinToLin\bin\Debug\net9.0-windows\WinToLin.runtimeconfig.json
 C:\Users\filip\Documents\Private\Projekte\WinToLin\WinToLin\bin\Debug\net9.0-windows\WinToLin.dll
@@ -62,3 +59,6 @@ C:\Users\filip\Documents\Private\Projekte\WinToLin\WinToLin\obj\Debug\net9.0-win
 C:\Users\filip\Documents\Private\Projekte\WinToLin\WinToLin\obj\Debug\net9.0-windows\WinToLin.genruntimeconfig.cache
 C:\Users\filip\Documents\Private\Projekte\WinToLin\WinToLin\obj\Debug\net9.0-windows\ref\WinToLin.dll
 C:\Users\filip\Documents\Private\Projekte\WinToLin\WinToLin\bin\Debug\net9.0-windows\Data\distros_togo.json
+C:\Users\filip\Documents\Private\Projekte\WinToLin\WinToLin\bin\Debug\net9.0-windows\Data\distros.json
+C:\Users\filip\Documents\Private\Projekte\WinToLin\WinToLin\bin\Debug\net9.0-windows\Data\Packages\Universal\flatpak.json
+C:\Users\filip\Documents\Private\Projekte\WinToLin\WinToLin\bin\Debug\net9.0-windows\Data\Packages\Universal\flatpak_alternatives.json

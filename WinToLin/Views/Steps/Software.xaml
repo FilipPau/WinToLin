@@ -3,20 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
-             xmlns:conv="clr-namespace:WinToLin.Converters"
              mc:Ignorable="d"
              d:DesignHeight="700" d:DesignWidth="1100">
 
     <UserControl.Resources>
-        <conv:LogoToBackgroundConverter x:Key="LogoToBackgroundConverter" />
-        
-        <CollectionViewSource x:Key="SortedSoftware" Source="{Binding _displaySoftware, RelativeSource={RelativeSource AncestorType=UserControl}}">
-            <CollectionViewSource.SortDescriptions>
-                <scm:SortDescription PropertyName="SortOrder" Direction="Ascending"/>
-                <scm:SortDescription PropertyName="Name" Direction="Ascending"/>
-            </CollectionViewSource.SortDescriptions>
-        </CollectionViewSource>
+        <SolidColorBrush x:Key="CardBg" Color="White" />
+        <SolidColorBrush x:Key="PrimaryBlue" Color="#1E88E5" />
+        <SolidColorBrush x:Key="ToggleGray" Color="#444" />
+        <SolidColorBrush x:Key="InteractColor" Color="#2C3E50" />
 
         <Style x:Key="PlaceholderStyle" TargetType="Grid">
             <Style.Triggers>
@@ -25,18 +19,6 @@
                 </DataTrigger>
             </Style.Triggers>
             <Setter Property="Visibility" Value="Collapsed"/>
-        </Style>
-
-        <SolidColorBrush x:Key="CardBg" Color="White" />
-        <SolidColorBrush x:Key="PrimaryBlue" Color="#1E88E5" />
-        <SolidColorBrush x:Key="ToggleGray" Color="#444" />
-        
-        <Style x:Key="BadgeStyle" TargetType="Border">
-            <Setter Property="Background" Value="#1E5FB1" />
-            <Setter Property="CornerRadius" Value="12" /> <!-- Slightly rounder for bigger text -->
-            <Setter Property="Padding" Value="14,5" />   <!-- Increased padding -->
-            <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="Margin" Value="0,12,0,0" />
         </Style>
 
         <Style x:Key="ModernToggleStyle" TargetType="ToggleButton">
@@ -48,11 +30,8 @@
                         <StackPanel Orientation="Horizontal" Background="Transparent">
                             <ContentPresenter x:Name="content" Margin="0,0,10,0" VerticalAlignment="Center"/>
                             <Grid VerticalAlignment="Center">
-                                <Border x:Name="Background" Width="36" Height="18" 
-                                        Background="{StaticResource ToggleGray}" CornerRadius="9"
-                                        SnapsToDevicePixels="True" />
-                                <Ellipse x:Name="Dot" Width="12" Height="12" 
-                                         Fill="White" HorizontalAlignment="Left" Margin="3,0" />
+                                <Border x:Name="Background" Width="36" Height="18" Background="{StaticResource ToggleGray}" CornerRadius="9" SnapsToDevicePixels="True" />
+                                <Ellipse x:Name="Dot" Width="12" Height="12" Fill="White" HorizontalAlignment="Left" Margin="3,0" />
                             </Grid>
                         </StackPanel>
                         <ControlTemplate.Triggers>
@@ -67,8 +46,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
-        <Style x:Key="ModernCheckBoxStyle" TargetType="CheckBox" BasedOn="{StaticResource ModernToggleStyle}"/>
     </UserControl.Resources>
 
     <Grid>
@@ -91,31 +68,21 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="40" />
                     </Grid.ColumnDefinitions>
-                    <TextBox x:Name="SearchBox" Background="Transparent" BorderThickness="0"
-                             Foreground="White" VerticalContentAlignment="Center" Padding="15,0"
-                             FontSize="14" CaretBrush="White" TextChanged="SearchBox_TextChanged"/>
-                    <Path Grid.Column="1" Data="M15.5,14h-0.79l-0.28-0.27C15.41,12.59,16,11.11,16,9.5C16,5.91,13.09,3,9.5,3S3,5.91,3,9.5S5.91,16,9.5,16 c1.61,0,3.09-0.59,4.23-1.57L14,14.71v0.79l5,4.99L20.49,19L15.5,14z M9.5,14C7.01,14,5,11.99,5,9.5S7.01,5,9.5,5S14,7.01,14,9.5 S11.99,14,9.5,14z"
-                          Fill="White" Stretch="Uniform" Margin="10" Width="18" />
+                    <TextBox x:Name="SearchBox" Background="Transparent" BorderThickness="0" Foreground="White" VerticalContentAlignment="Center" Padding="15,0" FontSize="14" CaretBrush="White" TextChanged="SearchBox_TextChanged"/>
+                    <Path Grid.Column="1" Data="M15.5,14h-0.79l-0.28-0.27C15.41,12.59,16,11.11,16,9.5C16,5.91,13.09,3,9.5,3S3,5.91,3,9.5S5.91,16,9.5,16 c1.61,0,3.09-0.59,4.23-1.57L14,14.71v0.79l5,4.99L20.49,19L15.5,14z M9.5,14C7.01,14,5,11.99,5,9.5S7.01,5,9.5,5S14,7.01,14,9.5 S11.99,14,9.5,14z" Fill="White" Stretch="Uniform" Margin="10" Width="18" />
                 </Grid>
             </Border>
 
-            <ToggleButton x:Name="SelectAllToggle" Grid.Column="1" Content="Select All" Margin="30,0"
-                          Style="{StaticResource ModernToggleStyle}" Click="SelectAll_Clicked" FontSize="14"/>
-
-            <CheckBox x:Name="HideSystemCheckBox" Grid.Column="3" Content="Hide System Components" 
-                      IsChecked="True" Style="{StaticResource ModernCheckBoxStyle}"
-                      Checked="HideComponents_Changed" Unchecked="HideComponents_Changed"
-                      FontSize="13" VerticalAlignment="Center" />
+            <ToggleButton x:Name="SelectAllToggle" Grid.Column="1" Content="Select All" Margin="30,0" Style="{StaticResource ModernToggleStyle}" Click="SelectAll_Clicked" FontSize="14"/>
+            <ToggleButton Grid.Column="2" Content="Show only compatible" Margin="30,0" Style="{StaticResource ModernToggleStyle}" Click="ShowOnlyCompatibleOnClick" FontSize="14"/>
+            <CheckBox x:Name="HideSystemCheckBox" Grid.Column="3" Content="Hide System Components" IsChecked="True" Style="{StaticResource ModernToggleStyle}" Checked="HideComponents_Changed" Unchecked="HideComponents_Changed" FontSize="13" VerticalAlignment="Center" />
         </Grid>
 
         <ListBox x:Name="SoftwareList" Grid.Row="1" Background="Transparent" BorderThickness="0"
-                 ItemsSource="{Binding Source={StaticResource SortedSoftware}}"
-                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" Padding="15, 0"
-                 SelectionMode="Multiple" SelectionChanged="SoftwareList_SelectionChanged"
-                 VirtualizingStackPanel.ScrollUnit="Pixel">
+                 ItemsSource="{Binding _displaySoftware}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Padding="15, 0"
+                 SelectionMode="Multiple" SelectionChanged="SoftwareList_SelectionChanged" VirtualizingStackPanel.ScrollUnit="Pixel">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <!-- Changed to 5 columns -->
                     <UniformGrid Columns="5" />
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
@@ -124,46 +91,84 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="ListBoxItem">
-                                <Grid x:Name="RootGrid" Margin="6" 
-                                      Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" 
-                                      RenderTransformOrigin="0.5,0.5">
-                                    <Grid.RenderTransform><ScaleTransform ScaleX="1" ScaleY="1" /></Grid.RenderTransform>
+                                <Grid x:Name="RootGrid" Margin="6" Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}">
                                     <Border x:Name="SelectionBorder" BorderBrush="{StaticResource PrimaryBlue}" BorderThickness="0" CornerRadius="12" Margin="-4" />
+                                    
                                     <Border x:Name="MainCard" Background="{StaticResource CardBg}" CornerRadius="10" BorderBrush="#DDD" BorderThickness="1" Cursor="Hand">
                                         <Border.Effect><DropShadowEffect BlurRadius="15" Opacity="0.1" ShadowDepth="2" /></Border.Effect>
-                                        <Viewbox Margin="12">
-                                            <StackPanel Width="220" VerticalAlignment="Center">
-                                                <Grid Width="48" Height="48" HorizontalAlignment="Center" Margin="0,0,0,15">
-                                                    <Image Source="{Binding Icon}" Width="48" Height="48" 
-                                                           RenderOptions.BitmapScalingMode="HighQuality"
-                                                           SnapsToDevicePixels="True" UseLayoutRounding="True" />
-                                                    <Grid Style="{StaticResource PlaceholderStyle}">
-                                                        <Ellipse Fill="{StaticResource PrimaryBlue}" Opacity="0.8"/>
-                                                        <TextBlock Text="{Binding Initial}" Foreground="White" 
-                                                                   VerticalAlignment="Center" HorizontalAlignment="Center" 
-                                                                   FontSize="24" FontWeight="Bold"/>
+                                        <Grid Margin="12">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+
+                                            <Viewbox x:Name="CardContentArea" Grid.Row="0" Margin="0,0,0,5">
+                                                <StackPanel Width="220" VerticalAlignment="Center">
+                                                    <Grid Width="48" Height="48" HorizontalAlignment="Center" Margin="0,0,0,12">
+                                                        <Image Source="{Binding Icon}" Width="48" Height="48" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                        <Grid Style="{StaticResource PlaceholderStyle}">
+                                                            <Ellipse Fill="{StaticResource PrimaryBlue}" Opacity="0.8"/>
+                                                            <TextBlock Text="{Binding Initial}" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" FontWeight="Bold"/>
+                                                        </Grid>
                                                     </Grid>
-                                                </Grid>
-                                                
-                                                <!-- Increased font size and line height feel -->
-                                                <TextBlock Text="{Binding Name}" FontWeight="Bold" Foreground="#222" 
-                                                           FontSize="26" TextAlignment="Center" TextWrapping="Wrap" MaxHeight="80"/>
-                                                
-                                                <!-- Bigger Badge -->
-                                                <Border Style="{StaticResource BadgeStyle}">
-                                                    <TextBlock Text="{Binding Compatibility}" Foreground="White" FontSize="18" FontWeight="Bold"/>
+                                                    
+                                                    <TextBlock Text="{Binding Name}" FontWeight="Bold" Foreground="#222" FontSize="24" TextAlignment="Center" TextWrapping="Wrap" MaxHeight="70"/>
+                                                    
+                                                    <TextBlock x:Name="SelectedAltLabel" Text="{Binding SelectedAlternativeName, StringFormat='Using: {0}'}" 
+                                                               Foreground="#1E88E5" FontSize="16" FontWeight="SemiBold" TextAlignment="Center" Margin="0,5,0,0" Visibility="Collapsed" TextWrapping="Wrap"/>
+                                                </StackPanel>
+                                            </Viewbox>
+
+                                            <Grid Grid.Row="1" Height="32">
+                                                <Border x:Name="BadgeBorder" CornerRadius="6" Padding="10,4" HorizontalAlignment="Center">
+                                                    <Border.Style>
+                                                        <Style TargetType="Border">
+                                                            <Setter Property="Background" Value="#E74C3C"/>
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding CompatibilityType}" Value="Native">
+                                                                    <Setter Property="Background" Value="#2ECC71"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Border.Style>
+                                                    <TextBlock Text="{Binding CompatibilityType}" Foreground="White" FontSize="13" FontWeight="Bold" VerticalAlignment="Center"/>
                                                 </Border>
-                                            </StackPanel>
-                                        </Viewbox>
+
+                                                <Button x:Name="AltButton" Content="Alternatives Available" Visibility="Collapsed"
+                                                        Background="#34495E" Foreground="White" FontWeight="Bold" FontSize="12" BorderThickness="0"
+                                                        Padding="8,0" Click="OpenAlternativesModal_Click">
+                                                    <Button.Resources>
+                                                        <Style TargetType="Border"><Setter Property="CornerRadius" Value="6"/></Style>
+                                                    </Button.Resources>
+                                                </Button>
+                                            </Grid>
+                                        </Grid>
                                     </Border>
                                 </Grid>
                                 <ControlTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding HasAlternatives}" Value="True">
+                                        <Setter TargetName="BadgeBorder" Property="Visibility" Value="Collapsed"/>
+                                        <Setter TargetName="AltButton" Property="Visibility" Value="Visible"/>
+                                        <Setter TargetName="CardContentArea" Property="IsHitTestVisible" Value="False"/>
+                                        <Setter TargetName="MainCard" Property="Cursor" Value="Arrow"/>
+                                    </DataTrigger>
+                                    
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding CompatibilityType}" Value="Incompatible"/>
+                                            <Condition Binding="{Binding HasAlternatives}" Value="False"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="IsHitTestVisible" Value="False"/>
+                                        <Setter TargetName="MainCard" Property="Opacity" Value="0.55"/>
+                                        <Setter TargetName="MainCard" Property="Cursor" Value="Arrow"/>
+                                    </MultiDataTrigger>
+
+                                    <DataTrigger Binding="{Binding IsAlternativeSelected}" Value="True">
+                                        <Setter TargetName="SelectedAltLabel" Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
                                     <Trigger Property="IsSelected" Value="True">
                                         <Setter TargetName="SelectionBorder" Property="BorderThickness" Value="4" />
                                         <Setter TargetName="MainCard" Property="BorderBrush" Value="{StaticResource PrimaryBlue}" />
-                                        <Setter TargetName="RootGrid" Property="RenderTransform">
-                                            <Setter.Value><ScaleTransform ScaleX="0.96" ScaleY="0.96" /></Setter.Value>
-                                        </Setter>
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
@@ -172,5 +177,47 @@
                 </Style>
             </ListBox.ItemContainerStyle>
         </ListBox>
+
+        <Grid x:Name="AlternativesModal" Grid.Row="0" Grid.RowSpan="2" Visibility="Collapsed" Background="#A0000000">
+            <Border Background="White" CornerRadius="12" Width="450" Height="400" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="20">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Margin="0,0,0,15">
+                        <TextBlock x:Name="ModalHeader" Text="Select Alternative" FontSize="20" FontWeight="Bold" Foreground="#2C3E50"/>
+                        <TextBlock Text="Choose an alternative Linux application package to install instead:" FontSize="13" Foreground="#7F8C8D" Margin="0,4,0,0"/>
+                    </StackPanel>
+
+                    <ListBox x:Name="ModalAlternativesList" Grid.Row="1" BorderBrush="#BDC3C7" BorderThickness="1" Background="#F8F9F9">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="5,8">
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding Name}" FontSize="16" FontWeight="Bold" Foreground="#2C3E50"/>
+                                        <TextBlock Text="{Binding FlatpakId, StringFormat='Flatpak ID: {0}'}" FontSize="12" Foreground="#95A5A6" Margin="0,2,0,0"/>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,0">
+                        <Button Content="Clear Selection" Width="110" Height="35" Background="#E74C3C" Foreground="White" BorderThickness="0" FontWeight="Bold" Margin="0,0,10,0" Click="ClearAlternativeSelection_Click">
+                            <Button.Resources><Style TargetType="Border"><Setter Property="CornerRadius" Value="4"/></Style></Button.Resources>
+                        </Button>
+                        <Button Content="Cancel" Width="80" Height="35" Background="#BDC3C7" Foreground="Black" BorderThickness="0" FontWeight="Bold" Margin="0,0,10,0" Click="CloseModal_Click">
+                            <Button.Resources><Style TargetType="Border"><Setter Property="CornerRadius" Value="4"/></Style></Button.Resources>
+                        </Button>
+                        <Button Content="Select" Width="90" Height="35" Background="{StaticResource PrimaryBlue}" Foreground="White" BorderThickness="0" FontWeight="Bold" Click="SelectAlternative_Click">
+                            <Button.Resources><Style TargetType="Border"><Setter Property="CornerRadius" Value="4"/></Style></Button.Resources>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
     </Grid>
 </UserControl>

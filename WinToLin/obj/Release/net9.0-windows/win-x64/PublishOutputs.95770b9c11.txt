@@ -1,7 +1,8 @@
 C:\Users\filip\Desktop\outwinlin\WinToLin.pdb
 C:\Users\filip\Desktop\outwinlin\Data\distros.json
 C:\Users\filip\Desktop\outwinlin\Data\distros_togo.json
-C:\Users\filip\Desktop\outwinlin\Data\software_alternatives_db.json
+C:\Users\filip\Desktop\outwinlin\Data\Packages\Universal\flatpak.json
+C:\Users\filip\Desktop\outwinlin\Data\Packages\Universal\flatpak_alternatives.json
 C:\Users\filip\Desktop\outwinlin\D3DCompiler_47_cor3.dll
 C:\Users\filip\Desktop\outwinlin\PenImc_cor3.dll
 C:\Users\filip\Desktop\outwinlin\PresentationNative_cor3.dll
