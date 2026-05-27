@@ -37,14 +37,14 @@
     <tr>
       <td>Ubuntu</td>
       <td>✅ (Since 23.04.2026)</td>
-      <td>🟡 (Since 23.04.2026)</td>
+      <td>✅ (Since 27.05.2026)</td>
       <td>🟡 (Since 23.04.2026)</td>
       <td>❌</td>
     </tr>
     <tr>
       <td>Fedora</td>
       <td>✅ (Since 21.05.2026)</td>
-      <td>❌</td>
+      <td>✅ (Since 27.05.2026)</td>
       <td>🟡 (Since 26.5.2026)</td>
       <td>❌</td>
     </tr>
