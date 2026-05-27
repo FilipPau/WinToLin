@@ -50,7 +50,7 @@
     </tr>
     <tr>
       <td>Other Distros</td>
-      <td colspan=4>Will come</td>
+      <td colspan=4 align="center">Will come</td>
     </tr>
   </tbody>
 </table>
