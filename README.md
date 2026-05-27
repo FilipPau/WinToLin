@@ -68,11 +68,15 @@
       <td>✅</td>
       <td>Fully Working</td>
     </tr>
-      <tr>
+    <tr>
       <td>🟡</td>
-      <td>Partialy Implemented (for example the app list needs to be expanded)</td>
+      <td>Lists need to be extended (supported apps, app config paths, ...)</td>
     </tr>
-      <tr>
+    <tr>
+      <td>🟠</td>
+      <td>Partialy Implemented</td>
+    </tr>
+    <tr>
       <td>❌</td>
       <td>Not Implemented</td>
     </tr>
