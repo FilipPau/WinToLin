@@ -49,6 +49,13 @@
       <td>❌</td>
     </tr>
     <tr>
+      <td>Mint</td>
+      <td>❌</td>
+      <td>❌</td>
+      <td>❌</td>
+      <td>❌</td>
+    </tr>
+    <tr>
       <td>Other Distros</td>
       <td colspan=4 align="center">Will come</td>
     </tr>
