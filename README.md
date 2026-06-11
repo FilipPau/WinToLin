@@ -51,7 +51,7 @@
     <tr>
       <td>Mint</td>
       <td>✅ (Since 31.05.2026)</td>
-      <td>❌</td>
+      <td>✅ (Since 11.06.2026)</td>
       <td>❌</td>
       <td>❌</td>
     </tr>
